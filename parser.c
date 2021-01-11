@@ -111,11 +111,7 @@ double eval_pow (node *this)
     node *right = ((binary_node *) this)->right;
     double lval = left->eval(left);
     double rval = right->eval(right);
-    double res;
-    if (lval < 0)
-        res = - pow ( - lval, rval);
-    else
-        res = pow (lval, rval);
+    double res = pow (lval, rval);
     puts ("free binary_node eval_pow"); free(this);
     return res;
 }
