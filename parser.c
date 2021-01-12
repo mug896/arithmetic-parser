@@ -235,7 +235,6 @@ int parse_factor (int begin, node **ast)
         case MINUS :
             MAKE_UNARY_NODE (child, eval_minus, *ast);
     }
-
     return token_cnt;
 }
 
