@@ -205,7 +205,7 @@ int parse_primary_expr (int begin, node **ast)
     token_cnt += parse_expr (begin + token_cnt, ast);
 
     if (begin + token_cnt++ >= end)
-        error_exit ("Parentheses missmatched. less PAR_CLOSE");
+        error_exit ("Parentheses missmatch. less PAR_CLOSE");
     puts (" )  PAR_CLOSE"); paren_cnt--;
 
     return token_cnt;
@@ -300,7 +300,7 @@ int parse_expr (int begin, node **ast)
         }
     }
     if (begin + token_cnt < end && arr[begin + token_cnt]->type == PAR_CLOSE 
-        && paren_cnt == 0) error_exit ("Parentheses missmatched. more PAR_CLOSE");
+        && paren_cnt == 0) error_exit ("Parentheses missmatch. more PAR_CLOSE");
 
     *ast = left;
     return token_cnt;
