@@ -230,6 +230,8 @@ int parse_factor (int begin, node **ast)
         *ast = child; 
         return tmp; 
     }
+    if (arr[begin]->type != PLUS && arr[begin]->type != MINUS) 
+        exit(1);
 
     token_cnt++;
     token_cnt += parse_factor (begin + 1, &child);
