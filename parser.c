@@ -223,8 +223,7 @@ int parse_factor (int begin, node **ast)
             node *right;
             token_cnt++;
             token_cnt += parse_factor (begin + token_cnt, &right);
-            MAKE_BINARY_NODE (child, right, eval_pow, child);
-            *ast = child;
+            MAKE_BINARY_NODE (child, right, eval_pow, *ast);
             return token_cnt;
         }
         *ast = child; 
