@@ -35,16 +35,13 @@ value : 300
 ===========  parse()  ===========
 RUN parse_expr()
 RUN parse_term()
-RUN parse_caret()
 RUN parse_factor()
 RUN parse_primary_expr()
 make_literal_node : 100
 RUN parse_term()
-RUN parse_caret()
 RUN parse_factor()
 RUN parse_primary_expr()
 make_literal_node : 200
-RUN parse_caret()
 RUN parse_factor()
 RUN parse_primary_expr()
 make_literal_node : 300
