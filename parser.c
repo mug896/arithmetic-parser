@@ -234,6 +234,8 @@ int parse_factor (int begin, node **ast)
             break;
         case MINUS :
             MAKE_UNARY_NODE (child, eval_minus, *ast);
+            break;
+        default : ;
     }
     return token_cnt;
 }
@@ -249,7 +251,7 @@ int parse_term (int begin, node **ast)
                 || arr[begin + token_cnt]->type == SLASH
                 || arr[begin + token_cnt]->type == PERCENT ))
     {
-        int type = arr[begin + token_cnt]->type;
+        token_t type = arr[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_factor (begin + token_cnt, &right);
         switch (type) {
@@ -261,6 +263,8 @@ int parse_term (int begin, node **ast)
                 break;
             case PERCENT : 
                 MAKE_BINARY_NODE (left, right, eval_mod, left);
+                break;
+            default : ;
         }
     }
     *ast = left;
@@ -277,7 +281,7 @@ int parse_expr (int begin, node **ast)
             && (arr[begin + token_cnt]->type == PLUS 
                 || arr[begin + token_cnt]->type == MINUS ))
     {
-        int type = arr[begin + token_cnt]->type;
+        token_t type = arr[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_term (begin + token_cnt, &right);
         switch (type) {
@@ -286,6 +290,8 @@ int parse_expr (int begin, node **ast)
                 break;
             case MINUS : 
                 MAKE_BINARY_NODE (left, right, eval_sub, left);
+                break;
+            default : ;
         }
     }
     if (begin + token_cnt < end && arr[begin + token_cnt]->type == PAR_CLOSE 
