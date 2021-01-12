@@ -195,7 +195,8 @@ int parse_primary_expr (int begin, node **ast)
     if (arr[begin]->type == PAR_OPEN) {
         puts (" (  PAR_OPEN"); paren_cnt++;
         token_cnt++;
-    } else return -1;
+    } else 
+        return -1;
 
     token_cnt += parse_expr (begin + token_cnt, ast);
 
