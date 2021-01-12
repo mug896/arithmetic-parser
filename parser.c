@@ -189,6 +189,8 @@ int parse_expr (int begin, node **ast);
 int parse_primary_expr (int begin, node **ast)
 {
     puts ("RUN parse_primary_expr()");
+    if (begin >= end) exit(1);
+
     int token_cnt = 0;
     if (arr[begin]->type == NUMBER) {
         MAKE_LITERAL_NODE (arr[begin]->value, *ast);
