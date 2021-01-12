@@ -228,10 +228,13 @@ int parse_factor (int begin, node **ast)
 
     token_cnt++;
     token_cnt += parse_factor (begin + 1, &child);
-    if (arr[begin]->type == PLUS)
-        MAKE_UNARY_NODE (child, eval_plus, *ast);
-    else
-        MAKE_UNARY_NODE (child, eval_minus, *ast);
+    switch (arr[begin]->type) {
+        case PLUS :
+            MAKE_UNARY_NODE (child, eval_plus, *ast);
+            break;
+        case MINUS :
+            MAKE_UNARY_NODE (child, eval_minus, *ast);
+    }
 
     return token_cnt;
 }
