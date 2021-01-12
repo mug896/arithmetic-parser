@@ -81,6 +81,8 @@ void tokenize (char *str) {
             default  : puts("blank");
         }
     }
+    if (end == 0) error_exit("No available tokens exist");
+
     printf ("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (arr[i]->type == NUMBER) 
