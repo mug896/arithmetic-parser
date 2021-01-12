@@ -172,9 +172,14 @@ double eval_literal (node *this)
 } while (0)
 
 /*
- *   이후부터는 우선순위별로 함수를 작성하면 됩니다.
+ *   이후부터는 연산자 우선순위별로 함수를 작성하면 됩니다.
  *   "^" 거듭제곱 연산자는 오른쪽부터 계산하는 right associativity 로써
- *   곱셈, 나눗셈 보다 먼저 계산돼야 하므로 parse_term() 보다 앞에 parse_caret() 을 작성합니다.
+ *   곱셈, 나눗셈 보다 먼저 계산돼야 하므로 parse_factor() 에 포함시킵니다.
+ *
+ *   <factor> ::= <primary-expr> 
+ *                | <primary-expr> ^ <factor> 
+ *                | "+" <factor> 
+ *                | "-" <factor>
  */
 
 int parse_expr (int begin, node **ast);
@@ -207,7 +212,19 @@ int parse_factor (int begin, node **ast)
     int token_cnt = 0;
     node *child;
     int tmp = parse_primary_expr (begin, &child);
-    if (tmp >= 0) { *ast = child; return tmp; }
+    if (tmp >= 0) { 
+        if (begin + tmp < end && arr[begin + tmp]->type == CARET) {
+            int token_cnt = tmp;
+            node *right;
+            token_cnt++;
+            token_cnt += parse_factor (begin + token_cnt, &right);
+            MAKE_BINARY_NODE (child, right, eval_pow, child);
+            *ast = child;
+            return token_cnt;
+        }
+        *ast = child; 
+        return tmp; 
+    }
 
     token_cnt++;
     token_cnt += parse_factor (begin + 1, &child);
@@ -219,27 +236,12 @@ int parse_factor (int begin, node **ast)
     return token_cnt;
 }
 
-int parse_caret (int begin, node **ast)
-{
-    puts ("RUN parse_caret()");
-    int token_cnt = 0;
-    node *left, *right;
-    token_cnt += parse_factor (begin, &left);
-    if (begin + token_cnt < end && arr[begin + token_cnt]->type == CARET) {
-        token_cnt++;
-        token_cnt += parse_caret (begin + token_cnt, &right);
-        MAKE_BINARY_NODE (left, right, eval_pow, left);
-    }
-    *ast = left;
-    return token_cnt;
-}
-
 int parse_term (int begin, node **ast)
 {
     puts ("RUN parse_term()");
     int token_cnt = 0;
     node *left, *right;
-    token_cnt += parse_caret (begin, &left);
+    token_cnt += parse_factor (begin, &left);
     while ( begin + token_cnt < end 
             && (arr[begin + token_cnt]->type == ASTERISK 
                 || arr[begin + token_cnt]->type == SLASH
@@ -247,7 +249,7 @@ int parse_term (int begin, node **ast)
     {
         int type = arr[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_caret (begin + token_cnt, &right);
+        token_cnt += parse_factor (begin + token_cnt, &right);
         switch (type) {
             case ASTERISK : 
                 MAKE_BINARY_NODE (left, right, eval_mul, left);
