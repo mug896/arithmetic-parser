@@ -240,7 +240,6 @@ int parse_factor (int begin, node **ast)
             break;
         case MINUS :
             MAKE_UNARY_NODE (child, eval_minus, *ast);
-            break;
         default : ;
     }
     return token_cnt;
@@ -269,7 +268,6 @@ int parse_term (int begin, node **ast)
                 break;
             case PERCENT : 
                 MAKE_BINARY_NODE (left, right, eval_mod, left);
-                break;
             default : ;
         }
     }
@@ -296,7 +294,6 @@ int parse_expr (int begin, node **ast)
                 break;
             case MINUS : 
                 MAKE_BINARY_NODE (left, right, eval_sub, left);
-                break;
             default : ;
         }
     }
