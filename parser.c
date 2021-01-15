@@ -36,7 +36,7 @@ typedef struct node {
 
 typedef struct literal_node {      // 구조체의 멤버들은 순서가 유지된다는 것을 이용합니다.
     double (*eval)(node *);        // 따라서 eval 함수에 해당하는 함수 포인터를 제일 위에 두면
-    double value;                  // node *ast 타입의 포인터에서도 실행할 수 있게됩니다.
+    double value;                  // node *foo 타입의 포인터에서도 실행할 수 있게됩니다.
 } literal_node;
 
 typedef struct unary_node {
