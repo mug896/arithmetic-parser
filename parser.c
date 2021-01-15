@@ -182,6 +182,14 @@ double eval_literal (node *this)
  *                | <primary-expr> ^ <factor> 
  *                | "+" <factor> 
  *                | "-" <factor>
+ *
+ *  기본적으로 함수들이 recursion 에 의해 동작하기 때문에 다음 사용할 token 을 맞추려면 
+ *  각 recursion 시에 함수에서 사용한 token_cnt 를 return 값으로 반환하여 계속 누적해 나가야 합니다. 
+ *  Abstract Syntax Tree 는 main 함수의 node *ast 포인터 변수에 만들어 나가는데,
+ *  예를 들어 parse_factor() 함수에서 설정한 node *child 를 parse_primary_expr() 함수의 **ast 인수로 전달하면
+ *  parse_primary_expr() 함수에서는 MAKE_LITERAL_NODE 할때 *ast 를 사용하면 child 포인터 변수가 설정되겠죠.
+ *  parse_factor() 함수에서는 다시 child 포인터를 *ast 에 설정한후 return 하고 ... 하면
+ *  recursive 하게 Abstract Syntax Tree 가 node *ast 변수에 만들어지게 됩니다.
  */
 
 int parse_expr (int begin, node **ast);
