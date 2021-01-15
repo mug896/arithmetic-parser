@@ -230,7 +230,7 @@ int parse_factor (int begin, node **ast)
         if (begin + tmp < end && arr[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
             int token_cnt = tmp;                                          // right associativity 로써 트리를 
             node *right;                                                  // 오른쪽에 만들어 나가야합니다.
-            token_cnt++;                                                  // 따라서 곱셈, 나눗셈이나 덧샘, 뺄셈과 달리 
+            token_cnt++;                                                  // 따라서 곱셈, 나눗셈이나 덧셈, 뺄셈과 달리 
             token_cnt += parse_factor (begin + token_cnt, &right);        // while 문을 이용해 트리를 만들지 않고 
             MAKE_BINARY_NODE (child, right, eval_pow, *ast);              // 자기 자신을 재귀적으로 호출한후에
             return token_cnt;                                             // return 하면서 트리를 만들어 나갑니다.
