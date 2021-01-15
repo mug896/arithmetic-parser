@@ -227,13 +227,13 @@ int parse_factor (int begin, node **ast)
     node *child;
     int tmp = parse_primary_expr (begin, &child);
     if (tmp >= 0) { 
-        if (begin + tmp < end && arr[begin + tmp]->type == CARET) {
-            int token_cnt = tmp;
-            node *right;
-            token_cnt++;
-            token_cnt += parse_factor (begin + token_cnt, &right);
-            MAKE_BINARY_NODE (child, right, eval_pow, *ast);
-            return token_cnt;
+        if (begin + tmp < end && arr[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
+            int token_cnt = tmp;                                          // right associativity 로써 트리를 
+            node *right;                                                  // 오른쪽에 만들어 나가야합니다.
+            token_cnt++;                                                  // 따라서 곱셈, 나눗셈이나 덧샘, 뺄셈과 달리 
+            token_cnt += parse_factor (begin + token_cnt, &right);        // while 문을 이용해 트리를 만들지 않고 
+            MAKE_BINARY_NODE (child, right, eval_pow, *ast);              // 자기 자신을 재귀적으로 호출한후에
+            return token_cnt;                                             // return 하면서 트리를 만들어 나갑니다.
         }
         *ast = child; 
         return tmp; 
@@ -242,10 +242,10 @@ int parse_factor (int begin, node **ast)
         exit(1);
 
     token_cnt++;
-    token_cnt += parse_factor (begin + 1, &child);
-    switch (arr[begin]->type) {
-        case PLUS :
-            MAKE_UNARY_NODE (child, eval_plus, *ast);
+    token_cnt += parse_factor (begin + 1, &child);         // "+" <factor> 와 "-" <factor> 를 만드는
+    switch (arr[begin]->type) {                            // MAKE_UNARY_NODE 의 경우도 오른쪽 <factor> 가
+        case PLUS :                                        // 먼저 계산이 완료돼야 하므로 자기 자신을 재귀적으로 
+            MAKE_UNARY_NODE (child, eval_plus, *ast);      // 호출한후에 return 하면서 트리를 만들어 나갑니다.
             break;
         case MINUS :
             MAKE_UNARY_NODE (child, eval_minus, *ast);
@@ -267,15 +267,15 @@ int parse_term (int begin, node **ast)
     {
         token_t type = arr[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_factor (begin + token_cnt, &right);
-        switch (type) {
-            case ASTERISK : 
-                MAKE_BINARY_NODE (left, right, eval_mul, left);
+        token_cnt += parse_factor (begin + token_cnt, &right);       // 곱셉, 나눗셈은 왼쪽부터 계산하는
+        switch (type) {                                              // left associativity 이므로 parse_factor() 
+            case ASTERISK :                                          // 함수를 이용해 node *right 를 설정해서
+                MAKE_BINARY_NODE (left, right, eval_mul, left);      // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
                 break;
-            case SLASH : 
+            case SLASH :
                 MAKE_BINARY_NODE (left, right, eval_div, left);
                 break;
-            case PERCENT : 
+            case PERCENT :
                 MAKE_BINARY_NODE (left, right, eval_mod, left);
             default : ;
         }
@@ -296,12 +296,12 @@ int parse_expr (int begin, node **ast)
     {
         token_t type = arr[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_term (begin + token_cnt, &right);
-        switch (type) {
-            case PLUS : 
-                MAKE_BINARY_NODE (left, right, eval_add, left);
-                break;
-            case MINUS : 
+        token_cnt += parse_term (begin + token_cnt, &right);         // 덧셈, 뺄셈도 왼쪽부터 계산하는
+        switch (type) {                                              // left associativity 이므로 parse_term() 
+            case PLUS :                                              // 함수를 이용해 node *right 를 설정해서
+                MAKE_BINARY_NODE (left, right, eval_add, left);      // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
+                break; 
+            case MINUS :
                 MAKE_BINARY_NODE (left, right, eval_sub, left);
             default : ;
         }
