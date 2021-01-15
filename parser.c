@@ -245,7 +245,7 @@ int parse_factor (int begin, node **ast)
     token_cnt += parse_factor (begin + 1, &child);         // "+" <factor> 와 "-" <factor> 를 만드는
     switch (arr[begin]->type) {                            // MAKE_UNARY_NODE 의 경우도 오른쪽 <factor> 가
         case PLUS :                                        // 먼저 계산이 완료돼야 하므로 자기 자신을 재귀적으로 
-            MAKE_UNARY_NODE (child, eval_plus, *ast);      // 호출한후에 return 하면서 트리를 만들어 나갑니다.
+            MAKE_UNARY_NODE (child, eval_plus, *ast);      // 호출한후에 return 하면서 트리를 만듭니다.
             break;
         case MINUS :
             MAKE_UNARY_NODE (child, eval_minus, *ast);
