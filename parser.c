@@ -190,7 +190,7 @@ double eval_literal (node *this)
  *  parse_primary_expr() 함수에서는 MAKE_LITERAL_NODE 할때 *ast 를 사용하면 child 포인터 변수가 설정되겠죠.
  *  parse_factor() 함수에서는 다시 child 포인터를 *ast 에 설정한후 return 하고 ... 하면
  *  recursive 하게 Abstract Syntax Tree 가 최종적으로 node *ast 변수에 만들어지게 됩니다.
- *  recursion 을 사용한 코드는 처음에는 이해하기가 어려우므로 시간을 가지고 분석해야 합니다.
+ *  recursion 을 이용한 코드는 처음에는 이해하기가 어려우므로 시간을 가지고 분석해야 합니다.
  */
 
 int parse_expr (int begin, node **ast);
