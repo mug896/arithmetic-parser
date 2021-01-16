@@ -300,10 +300,10 @@ int parse_expr (int begin, node **ast)
         switch (type) {                                              // left associativity 이므로 parse_term() 
             case PLUS :                                              // 함수를 이용해 node *right 를 설정해서
                 MAKE_BINARY_NODE (left, right, eval_add, left);      // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
-                break; 
-            case MINUS :
-                MAKE_BINARY_NODE (left, right, eval_sub, left);
-            default : ;
+                break;                                               //
+            case MINUS :                                             //   2 - 3 + 4  일경우           + 
+                MAKE_BINARY_NODE (left, right, eval_sub, left);      //                           -       4
+            default : ;                                              //                        2     3
         }
     }
     if (begin + token_cnt < end && arr[begin + token_cnt]->type == PAR_CLOSE 
