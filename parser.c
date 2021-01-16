@@ -319,8 +319,8 @@ int main (int argc, char *argv[])
 
     puts ("==========  tokenize()  =========");
     tokenize (argv[1]);
-    node *ast;
     puts ("===========  parse()  ===========");
+    node *ast;
     parse_expr (0, &ast);
     puts ("============  eval()  ===========");
     printf ("result : %g\n", ast->eval (ast));
