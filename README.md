@@ -48,9 +48,9 @@ make_literal_node : 300
 make_binary_node eval_mul
 make_binary_node eval_add
 ============  eval()  ===========
-free literal_node
-free literal_node
-free literal_node
+free literal_node : 100
+free literal_node : 200
+free literal_node : 300
 free binary_node eval_mul
 free binary_node eval_add
 result : 60100
