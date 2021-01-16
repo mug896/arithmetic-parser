@@ -230,8 +230,8 @@ int parse_factor (int begin, node **ast)
         if (begin + tmp < end && arr[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
             int token_cnt = tmp;                                          // right associativity 로써 트리를 
             node *right;                                                  // 오른쪽에 만들어 나가야합니다.
-            token_cnt++;                                                  // 따라서 곱셈, 나눗셈이나 덧셈, 뺄셈과 달리 
-            token_cnt += parse_factor (begin + token_cnt, &right);        // while 문을 이용해 트리를 만들지 않고 
+            token_cnt++;                                                  // <primary-expr> ^ <factor> 는 다시 <factor> 에
+            token_cnt += parse_factor (begin + token_cnt, &right);        // 포함되므로 while 문을 이용해 트리를 만들지 않고 
             MAKE_BINARY_NODE (child, right, eval_pow, *ast);              // 자기 자신을 재귀적으로 호출한후에
             return token_cnt;                                             // return 하면서 트리를 만들어 나갑니다.
         }
@@ -271,9 +271,9 @@ int parse_term (int begin, node **ast)
         switch (type) {                                              // left associativity 이므로 parse_factor() 
             case ASTERISK :                                          // 함수를 이용해 node *right 를 설정해서
                 MAKE_BINARY_NODE (left, right, eval_mul, left);      // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
-                break;
-            case SLASH :
-                MAKE_BINARY_NODE (left, right, eval_div, left);
+                break;                                               // 덧셈, 뺼셈과 곱셈, 나눗셈의 관계는 
+            case SLASH :                                             // 곱셈, 나눗셈이 우선순위가 높기 때문에 
+                MAKE_BINARY_NODE (left, right, eval_div, left);      // parse_term() 함수를 별도로 만들어야 합니다.
                 break;
             case PERCENT :
                 MAKE_BINARY_NODE (left, right, eval_mod, left);
