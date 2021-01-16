@@ -234,11 +234,11 @@ int parse_factor (int begin, node **ast)
             token_cnt += parse_factor (begin + token_cnt, &right);        // 포함되므로 while 문을 이용해 트리를 만들지 않고 
             MAKE_BINARY_NODE (child, right, eval_pow, *ast);              // 자기 자신을 재귀적으로 호출한후에
             return token_cnt;                                             // return 하면서 트리를 만들어 나갑니다.
-        }
-        *ast = child; 
-        return tmp; 
-    }
-    if (arr[begin]->type != PLUS && arr[begin]->type != MINUS) 
+        }                                                                 //
+        *ast = child;                                                     //   2 ^ 3 ^ 4  일경우       ^
+        return tmp;                                                       //                         2    ^
+    }                                                                     //                            3   4
+    if (arr[begin]->type != PLUS && arr[begin]->type != MINUS)
         exit(1);
 
     token_cnt++;
