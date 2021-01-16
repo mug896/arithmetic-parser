@@ -302,7 +302,7 @@ int parse_expr (int begin, node **ast)
                 MAKE_BINARY_NODE (left, right, eval_add, left);      // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
                 break;                                               //
             case MINUS :                                             //   2 - 3 + 4  일경우           +
-                MAKE_BINARY_NODE (left, right, eval_sub, left);      //                           -      4
+                MAKE_BINARY_NODE (left, right, eval_sub, left);      //                           -     4
             default : ;                                              //                        2     3
         }
     }
