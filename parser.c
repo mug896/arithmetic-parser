@@ -236,8 +236,8 @@ int parse_factor (int begin, node **ast)
             return token_cnt;                                             // return 하면서 트리를 만들어 나갑니다.
         }                                                                 //
         *ast = child;                                                     //   2 ^ 3 ^ 4  일경우         ^
-        return tmp;                                                       //                         2    ^
-    }                                                                     //                            3   4
+        return tmp;                                                       //                         2     ^
+    }                                                                     //                            3     4
     if (arr[begin]->type != PLUS && arr[begin]->type != MINUS)
         exit(1);
 
