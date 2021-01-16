@@ -144,7 +144,7 @@ double eval_minus (node *this)
 double eval_literal (node *this)
 {
     double res = ((literal_node *) this)->value;
-    puts ("free literal_node"); free(this);
+    printf ("free literal_node : %g\n", res); free(this);
     return res;
 }
 
