@@ -111,6 +111,7 @@ int parse_primary_expr (int begin, double *ret)
     int token_cnt = 0;
     if (arr[begin]->type == NUMBER) {
         *ret = arr[begin]->value;
+        printf ("NUMBER : %g\n", *ret);
         return 1;
     }
     if (arr[begin]->type == PAR_OPEN) {
