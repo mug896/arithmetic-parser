@@ -231,7 +231,7 @@ int main (int argc, char *argv[])
     puts ("===========  parse()  ===========");
     double result;
     parse_expr (0, &result);
-    puts ("============  eval()  ===========");
+    puts ("============  result  ===========");
     printf ("result : %g\n", result);
 
     return 0;
