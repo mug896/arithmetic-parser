@@ -239,7 +239,7 @@ int parse_factor (int begin, node **ast)
         return tmp;                                                       //                         2     ^
     }                                                                     //                            3     4
     if (arr[begin]->type != PLUS && arr[begin]->type != MINUS)
-        exit(1);
+        error_exit ("Only unary PLUS or MINUS allowed");
 
     token_cnt++;
     token_cnt += parse_factor (begin + 1, &child);         // "+" <factor> 와 "-" <factor> 를 만드는
