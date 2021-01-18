@@ -123,7 +123,7 @@ int parse_primary_expr (int begin, double *ret)
     token_cnt += parse_expr (begin + token_cnt, ret);
 
     if (begin + token_cnt++ >= end)
-        error_exit ("Parentheses missmatch. less PAR_CLOSE");
+        error_exit ("Parentheses missmatch");
     puts (" )  PAR_CLOSE"); paren_cnt--;
 
     return token_cnt;
@@ -170,6 +170,12 @@ int parse_term (int begin, double *ret)
     int token_cnt = 0;
     double left, right;
     token_cnt += parse_factor (begin, &left);
+    if (begin + token_cnt < end) {
+        if (arr[begin + token_cnt]->type == NUMBER)
+            error_exit ("Consecutive NUMBER");
+        if (arr[begin + token_cnt]->type == PAR_OPEN)
+            error_exit ("Missing operator before PAR_OPEN ?");
+    }
     while ( begin + token_cnt < end 
             && (arr[begin + token_cnt]->type == ASTERISK 
                 || arr[begin + token_cnt]->type == SLASH
@@ -217,7 +223,7 @@ int parse_expr (int begin, double *ret)
         }
     }
     if (begin + token_cnt < end && arr[begin + token_cnt]->type == PAR_CLOSE 
-        && paren_cnt == 0) error_exit ("Parentheses missmatch. more PAR_CLOSE");
+        && paren_cnt == 0) error_exit ("Parentheses missmatch");
 
     *ret = left;
     return token_cnt;
