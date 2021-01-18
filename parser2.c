@@ -10,7 +10,7 @@
 } while (0)
 
 struct token *arr[1000];
-int end = 0, cur = 0; 
+int end = 0;
 int paren_cnt = 0;
 
 typedef enum {
