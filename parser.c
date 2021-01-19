@@ -228,16 +228,16 @@ int parse_factor (int begin, node **ast)
     int tmp = parse_primary_expr (begin, &child);
     if (tmp >= 0) { 
         if (begin + tmp < end && arr[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
-            int token_cnt = tmp;                                          // right associativity 로써 트리를 
+            int token_cnt = tmp;                                          // right associativity 로써 트리를
             node *right;                                                  // 오른쪽에 만들어 나가야합니다.
-            token_cnt++;                                                  // <primary-expr> ^ <factor> 는 다시 <factor> 에
-            token_cnt += parse_factor (begin + token_cnt, &right);        // 포함되므로 while 문을 이용해 트리를 만들지 않고 
-            MAKE_BINARY_NODE (child, right, eval_pow, *ast);              // 자기 자신을 재귀적으로 호출한후에
-            return token_cnt;                                             // return 하면서 트리를 만들어 나갑니다.
-        }                                                                 //
-        *ast = child;                                                     //   2 ^ 3 ^ 4  일경우         ^
-        return tmp;                                                       //                         2     ^
-    }                                                                     //                            3     4
+            token_cnt++;                                                  // 따라서 while 문을 이용해 트리를 만들지 않고
+            token_cnt += parse_factor (begin + token_cnt, &right);        // 자기 자신을 재귀적으로 호출한후에
+            MAKE_BINARY_NODE (child, right, eval_pow, *ast);              // return 하면서 트리를 만들어 나갑니다.
+            return token_cnt;                                             //
+        }                                                                 //   2 ^ 3 ^ 4  일경우         ^
+        *ast = child;                                                     //                         2     ^
+        return tmp;                                                       //                            3     4
+    } 
     if (arr[begin]->type != PLUS && arr[begin]->type != MINUS)
         error_exit ("Only unary PLUS or MINUS allowed");
 
