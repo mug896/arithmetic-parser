@@ -135,6 +135,7 @@ int parse_factor (int begin, double *ret)
     int token_cnt = 0;
     double value;
     token_t type;
+
     int tmp = parse_primary_expr (begin, &value);
     if (tmp >= 0) { 
         if (begin + tmp < end && arr[begin + tmp]->type == CARET) {
@@ -169,7 +170,9 @@ int parse_term (int begin, double *ret)
     puts ("parse_term()");
     int token_cnt = 0;
     double left, right;
+
     token_cnt += parse_factor (begin, &left);
+
     if (begin + token_cnt < end) {
         if (arr[begin + token_cnt]->type == NUMBER)
             error_exit ("Consecutive NUMBER");
@@ -205,7 +208,9 @@ int parse_expr (int begin, double *ret)
     puts ("parse_expr()");
     int token_cnt = 0;
     double left, right;
+
     token_cnt += parse_term (begin, &left);
+
     while ( begin + token_cnt < end 
             && (arr[begin + token_cnt]->type == PLUS 
                 || arr[begin + token_cnt]->type == MINUS ))

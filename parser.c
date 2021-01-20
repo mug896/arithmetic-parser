@@ -225,6 +225,7 @@ int parse_factor (int begin, node **ast)
     puts ("RUN parse_factor()");
     int token_cnt = 0;
     node *child;
+
     int tmp = parse_primary_expr (begin, &child);
     if (tmp >= 0) { 
         if (begin + tmp < end && arr[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
@@ -259,7 +260,9 @@ int parse_term (int begin, node **ast)
     puts ("RUN parse_term()");
     int token_cnt = 0;
     node *left, *right;
+
     token_cnt += parse_factor (begin, &left);
+
     if (begin + token_cnt < end) {
         if (arr[begin + token_cnt]->type == NUMBER)
             error_exit ("Consecutive NUMBER");
@@ -295,7 +298,9 @@ int parse_expr (int begin, node **ast)
     puts ("RUN parse_expr()");
     int token_cnt = 0;
     node *left, *right;
+
     token_cnt += parse_term (begin, &left);
+
     while ( begin + token_cnt < end 
             && (arr[begin + token_cnt]->type == PLUS 
                 || arr[begin + token_cnt]->type == MINUS ))
