@@ -321,7 +321,8 @@ int parse_expr (int begin, node **ast)
 
 int main (int argc, char *argv[]) 
 {
-    if (argc == 1) return 1;
+    if (argc == 1)
+        error_exit ("Arithmetic expression required");
 
     puts ("==========  tokenize()  =========");
     tokenize (argv[1]);
