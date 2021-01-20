@@ -231,7 +231,7 @@ int parse_expr (int begin, double *ret)
 
 int main (int argc, char *argv[]) 
 {
-    if (argc == 1)
+    if (argc < 2)
         error_exit ("Arithmetic expression required");
 
     puts ("==========  tokenize()  =========");
