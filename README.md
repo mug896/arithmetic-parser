@@ -11,7 +11,7 @@ The Casterian 블로그의 [BNF와 재귀 하향 파서](https://casterian.net/a
 만들어지게 됐는지 바로 알 수 있습니다.
 블로그에 있는 `C++` 코드와 한번 비교해 보세요.
 
-두 번째 parser2.c 는 따로 abstract syntax tree 를 만들지 않고 바로 계산하면서 올라갑니다.
+두 번째 `parser2.c` 는 따로 abstract syntax tree 를 만들지 않고 바로 계산하면서 올라갑니다.
 
 
 ```sh
