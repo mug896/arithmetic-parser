@@ -15,8 +15,8 @@ int paren_cnt = 0;
 
 typedef enum {
     NUMBER,
-    PAR_OPEN,
-    PAR_CLOSE,
+    LPARAN,
+    RPARAN,
     PLUS,
     MINUS,
     ASTERISK,
@@ -43,8 +43,8 @@ void tokenize (char *str) {
     {
         switch (str[i]) 
         {
-            case '(' : puts("paran-open"); add_token ('(', PAR_OPEN); break;
-            case ')' : puts("paran-close"); add_token (')', PAR_CLOSE); break;
+            case '(' : puts("paran-open"); add_token ('(', LPARAN); break;
+            case ')' : puts("paran-close"); add_token (')', RPARAN); break;
             case '+' : puts("plus"); add_token ('+', PLUS); break;
             case '-' : puts("minus"); add_token ('-', MINUS); break;
             case '*' : puts("asterisk"); add_token ('*', ASTERISK); break;
@@ -114,8 +114,8 @@ int parse_primary_expr (int begin, double *ret)
         printf ("NUMBER : %g\n", *ret);
         return 1;
     }
-    if (arr[begin]->type == PAR_OPEN) {
-        puts (" (  PAR_OPEN"); paren_cnt++;
+    if (arr[begin]->type == LPARAN) {
+        puts (" (  LPARAN"); paren_cnt++;
         token_cnt++;
     } else 
         return -1;
@@ -124,7 +124,7 @@ int parse_primary_expr (int begin, double *ret)
 
     if (begin + token_cnt++ >= end)
         error_exit ("Parentheses missmatch");
-    puts (" )  PAR_CLOSE"); paren_cnt--;
+    puts (" )  RPARAN"); paren_cnt--;
 
     return token_cnt;
 }
@@ -176,8 +176,8 @@ int parse_term (int begin, double *ret)
     if (begin + token_cnt < end) {
         if (arr[begin + token_cnt]->type == NUMBER)
             error_exit ("Consecutive NUMBER");
-        if (arr[begin + token_cnt]->type == PAR_OPEN)
-            error_exit ("Missing operator before PAR_OPEN ?");
+        if (arr[begin + token_cnt]->type == LPARAN)
+            error_exit ("Missing operator before LPARAN ?");
     }
     while ( begin + token_cnt < end 
             && (arr[begin + token_cnt]->type == ASTERISK 
@@ -227,7 +227,7 @@ int parse_expr (int begin, double *ret)
             default : ;
         }
     }
-    if (begin + token_cnt < end && arr[begin + token_cnt]->type == PAR_CLOSE 
+    if (begin + token_cnt < end && arr[begin + token_cnt]->type == RPARAN 
         && paren_cnt == 0) error_exit ("Parentheses missmatch");
 
     *ret = left;
