@@ -74,7 +74,8 @@ void tokenize (char *str) {
             case '1' : case '2' : case '3' : case '4' : case '5' :
             case '6' : case '7' : case '8' : case '9' : case '0' : case '.' :
                        puts("number"); j = 0; 
-                       while (isdigit (str[i]) || str[i] == '.') buf[j++] = str[i++];
+                       while (isdigit (str[i]) || str[i] == '.')
+                           buf[j++] = str[i++];
                        buf[j] = '\0'; i -= 1;
                        add_token (atof(buf), NUMBER); 
                        break;
