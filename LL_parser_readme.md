@@ -20,16 +20,16 @@ LL 파싱 rule 은  다음과 같이 작성하면 안됩니다.
     P -> a
 ```
 
-LL 파싱은 left recursion 을 제거하고 left factoring 을 해줘야 합니다.
+LL 파싱은 left recursion 을 제거하고 다음과 같이 left factoring 을 해줘야 합니다.
 
 ```
     E  ->  TE'
     E' ->  - E | + E | e
     T  ->  FT'
-    T' ->  * T | / T | % T | e
+    T' ->  * T | / T | % T | e     // e 는 epsilon
     F  ->  - F | + F | PF'
     F' ->  ^ F | e
-    P  ->  ( E ) | a
+    P  ->  ( E ) | a               // a 는 NUMBER 입니다.
 ```
 
 ```
