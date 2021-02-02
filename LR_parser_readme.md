@@ -1,9 +1,45 @@
+# LR Paser
 
+
+LR 파싱은 stack 을 이용하는 automaton 을 만들어서 기계적으로 처리하는 방법입니다.
+자판기를 예로 들면 유한한 상태를 가지고 deterministic 하게 동작하죠.
+LR 파싱의 경우에는 stack 에 토큰이 하나 들어오면 상태가 변하게 되는데 이것을 모두 트래킹 해서 action 과 goto 테이블을 만듭니다.
+LR_parser.c 파일에서 실제 파싱을 처리하는 부분을 보면
+미리 만들어놓은 테이블을 참조해서 기계적으로 shift 와 reduce 하는 것뿐이 없습니다.
+
+따라서 LR 파싱에서 주된 작업은 파싱 테이블을 만드는 것입니다.
+먼저 사용할 rule 을 작성한 다음 작성한 rule 에 따라서 파싱 테이블을 만들게 되는데
+이것도 작성해보면 기계적인 작업입니다.
+따라서 사람이 rule 만 작성하면 자동으로 파싱 테이블을 만들어 주는 툴이 있는데
+그것이 yacc ( bison ) 파서 생성기입니다.
+
+LR 파싱은 LL 파싱과 다르게 rule 을 작성할때 기본적으로 left recursion 을 사용해야 합니다.
+그래야 reduce 가 되면서 진행이 됩니다.
+만약에 right recursion 을 사용하게 되면 입력 토큰이 모두 consume 될 때까지 reduce 가 
+일어나지 않습니다.
+하지만 이것이 유용하게 사용될 때가 있는데 `^` 연산자 에서처럼 right associativity 
+를 구현할 때입니다.
+예를 들어 `2 ^ 3 ^ 4` 식이 있을 경우 곱셈이나 덧셈에서처럼 `2 ^ 3` 에서 reduce 가 일어나면 안되겠죠. 
+이때 `^` 연산자의 rule 에 right recursion 을 사용하게 되면 `^ 4` 까지 모두 읽어들인 후에
+오른쪽부터 reduce 가 일어나게 됩니다.
+
+
+
+파싱 테이블을 어떻게 만들고 사용하는지는 Joongheon Kim 님의 강좌를 보면 알 수 있습니다.
+
+Joongheon Kim 님의 컴파일러 강좌
+https://www.youtube.com/watch?v=MAG4ten4nAM&list=PLalDxVXf3NHertbSsvTLOLZz0T3FyCQnI
+
+강승식 교수님의 컴파일러 강좌 
+https://www.youtube.com/channel/UC9BQ1zJdpPBit9V3IFx8GDw/videos
+
+LL and LR Parsing Demystified
+https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 
 
 ```
     rule 0 :	S -> E
-    rule 1 :	E -> E - T
+    rule 1 :	E -> E - T       // 기본적으로 left recursion 을 사용한다.
     rule 2 :	E -> E + T
     rule 3 :	E -> T
     rule 4 :	T -> T * F
@@ -12,7 +48,7 @@
     rule 7 :	T -> F
     rule 8 :	F -> - F
     rule 9 :	F -> + F
-    rule 10 :   F -> P ^ F
+    rule 10 :   F -> P ^ F       // right associativity 를 위한 right recursion
     rule 11 :   F -> P
     rule 12 :	P -> ( E )
     rule 13 :	P -> a

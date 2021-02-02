@@ -114,7 +114,7 @@ next :
     return p;
 }
 
-void print_stack (struct stack *sp)    // 현재 stack 내용을 출력하는 함수
+void print_stack (struct stack *sp)    // 현재 stack 내용을 출력해 주는 함수
 {
     if (sp->prev != NULL)
         print_stack (sp->prev);
