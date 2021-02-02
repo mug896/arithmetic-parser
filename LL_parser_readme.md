@@ -3,11 +3,11 @@ LL 파싱은 left recursion 을 제거하고 left factoring 을 해줘야한다.
 ```
     E  ->  TE'
     E' ->  - E | + E | e
-	T  ->  FT'
-	T' ->  * T | / T | % T | e
-	F  ->  - F | + F | PF'
+    T  ->  FT'
+    T' ->  * T | / T | % T | e
+    F  ->  - F | + F | PF'
     F' ->  ^ F | e
-	P  ->  ( E ) | a
+    P  ->  ( E ) | a
 ```
 
 ```
@@ -33,16 +33,16 @@ LL 파싱은 left recursion 을 제거하고 left factoring 을 해줘야한다.
     LOOAHEAD(E' -> - E)   = { - }
     LOOAHEAD(E' -> + E)   = { + }
     LOOAHEAD(E' -> e)     = { ) , $ }
-	LOOAHEAD(T  -> FT')   = { - , + , ( , a }
-	LOOAHEAD(T' -> * T)   = { * }
-	LOOAHEAD(T' -> / T)   = { / }
-	LOOAHEAD(T' -> % T)   = { % }
-	LOOAHEAD(T' -> e)     = { - , + , ) , $ }
-	LOOAHEAD(F  -> -F)    = { - }
-	LOOAHEAD(F  -> +F)    = { + }
-	LOOAHEAD(F  -> PF')   = { ( , a }
+    LOOAHEAD(T  -> FT')   = { - , + , ( , a }
+    LOOAHEAD(T' -> * T)   = { * }
+    LOOAHEAD(T' -> / T)   = { / }
+    LOOAHEAD(T' -> % T)   = { % }
+    LOOAHEAD(T' -> e)     = { - , + , ) , $ }
+    LOOAHEAD(F  -> -F)    = { - }
+    LOOAHEAD(F  -> +F)    = { + }
+    LOOAHEAD(F  -> PF')   = { ( , a }
     LOOAHEAD(F' -> ^ F)   = { ^ }
     LOOAHEAD(F' -> e)     = { * , / , % , - , + , ) , $ }
-	LOOAHEAD(P  -> (E))   = { ( }
-	LOOAHEAD(P  -> a)     = { a }
+    LOOAHEAD(P  -> (E))   = { ( }
+    LOOAHEAD(P  -> a)     = { a }
 ```
