@@ -107,11 +107,11 @@ next :
                    break;
         default  : cpos += 1; goto next;
     }
-    struct token *ptr = malloc (sizeof (struct token));
-    ptr->value = value;
-    ptr->type = type;
+    struct token *p = malloc (sizeof (struct token));
+    p->value = value;
+    p->type = type;
     cpos += 1;
-    return ptr;
+    return p;
 }
 
 void print_stack (struct stack *sp)    // 현재 stack 내용을 출력하는 함수
