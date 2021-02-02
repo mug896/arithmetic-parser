@@ -9,7 +9,7 @@
     fprintf (stderr, "ERROR : " str "\n" ); exit (1); \
 } while (0)
 
-char *input_str;   // 입력 스트링 argv[1] 을 대입해 사용
+const char *input_str;   // 입력 스트링 argv[1] 을 대입해 사용
 
 enum token_type 
 { 
