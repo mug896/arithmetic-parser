@@ -27,13 +27,13 @@ LR 파싱은 LL 파싱과 다르게 rule 을 작성할때 기본적으로 left r
 
 파싱 테이블을 어떻게 만들고 사용하는지는 Joongheon Kim 님의 강좌를 보면 알 수 있습니다.
 
-Joongheon Kim 님의 컴파일러 강좌
+- Joongheon Kim 님의 컴파일러 강좌  
 https://www.youtube.com/watch?v=MAG4ten4nAM&list=PLalDxVXf3NHertbSsvTLOLZz0T3FyCQnI
 
-강승식 교수님의 컴파일러 강좌 
+- 강승식 교수님의 컴파일러 강좌   
 https://www.youtube.com/channel/UC9BQ1zJdpPBit9V3IFx8GDw/videos
 
-LL and LR Parsing Demystified
+- LL and LR Parsing Demystified  
 https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 
 
