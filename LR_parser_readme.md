@@ -25,7 +25,7 @@ LR 파싱은 LL 파싱과 다르게 rule 을 작성할때 기본적으로 left r
 
 
 
-파싱 테이블을 어떻게 만들고 사용하는지는 Joongheon Kim 님의 강좌를 보면 알 수 있습니다.
+파싱 테이블을 어떻게 만들고 사용하는지는 Joongheon Kim 님의 강좌에서 볼 수 있습니다.
 
 - Joongheon Kim 님의 컴파일러 강좌  
 https://www.youtube.com/watch?v=MAG4ten4nAM&list=PLalDxVXf3NHertbSsvTLOLZz0T3FyCQnI
