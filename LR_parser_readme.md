@@ -79,39 +79,39 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
         GOTO(X0, F)  = CLOSURE([T->F.]) = [T->F.] = <X3>
         GOTO(X0,'-') = CLOSURE([F->-.F]) 
                      = [F->-.F] [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X4>
+                       [P->.(E)] [P->.a] = <X4>
         GOTO(X0,'+') = CLOSURE([F->+.F])
                      = [F->+.F] [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X5>
+                       [P->.(E)] [P->.a] = <X5>
         GOTO(X0, P)  = CLOSURE([F->P.^F] [F->P.])
                      = [F->P.^F] [F->P.] = <X6>
         GOTO(X0,'(') = CLOSURE([P->(.E)])
                      = [P->(.E)] [E->.E-T] [E->.E+T] [E->.T]
-	                   [T->.T*F] [T->.T/F] [T->.T%F] [T->.F]
-	                   [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X7>
+                       [T->.T*F] [T->.T/F] [T->.T%F] [T->.F]
+                       [F->.-F] [F->.+F] [F->.P] [F->.P^F]
+                       [P->.(E)] [P->.a] = <X7>
         GOTO(X0, a)  = CLOSURE([P->a.]) = [P->a.] = <X8>
         
 >>> GOTO for X1
         GOTO(X1, -)  = CLOSURE([E->E-.T])
                      = [E->E-.T] [T->.T*F] [T->.T/F] [T->.T%F] [T->.F]
-	                   [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X9>
+                       [F->.-F] [F->.+F] [F->.P] [F->.P^F]
+                       [P->.(E)] [P->.a] = <X9>
         GOTO(X1, +)  = CLOSURE([E->E+.T])
                      = [E->E+.T] [T->.T*F] [T->.T/F] [T->.T%F] [T->.F]
-	                   [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X10>
+                       [F->.-F] [F->.+F] [F->.P] [F->.P^F]
+                       [P->.(E)] [P->.a] = <X10>
 	                   
 >>> GOTO for X2
         GOTO(X2, *)  = CLOSURE([T->T*.F])
                      = [T->T*.F] [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X11>
+                       [P->.(E)] [P->.a] = <X11>
         GOTO(X2, /)  = CLOSURE([T->T/.F])
                      = [T->T/.F] [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X12>
+                       [P->.(E)] [P->.a] = <X12>
         GOTO(X2, %)  = CLOSURE([T->T%.F])
                      = [T->T%.F] [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X13>
+                       [P->.(E)] [P->.a] = <X13>
 	                   
 >>> GOTO for X4
         GOTO(X4, F)  = CLOSURE([F->-F.]) = [F->-F.] = <X14>
@@ -132,7 +132,7 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 >>> GOTO for X6
         GOTO(X6,'^') = CLOSURE([F->P^.F])
                      = [F->P^.F] [F->.-F] [F->.+F] [F->.P] [F->.P^F]
-	                   [P->.(E)] [P->.a] = <X16>
+                       [P->.(E)] [P->.a] = <X16>
 	                   
 >>> GOTO for X7
         GOTO(X7, E)  = CLOSURE([P->(E.)] [E->E.-T] [E->E.+T])
