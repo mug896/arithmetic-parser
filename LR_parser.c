@@ -22,7 +22,7 @@ const char *token_type_s[] = {
     "RPAREN", "NUMBER", "ENDMARK", "EXPR", "TERM", "FACTOR", "PEXPR"
 };
 
-typedef struct token {       // 각각의 토큰은 struct token 구조체로 설정합니다.
+typedef struct token {       // 각각의 토큰을 struct token 구조체로 설정합니다.
     double value;
     enum token_type type;
     int state;
