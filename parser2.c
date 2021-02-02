@@ -13,7 +13,7 @@ struct token *arr[1000];
 int end = 0;
 int paren_cnt = 0;
 
-typedef enum {
+enum token_type {
     NUMBER,
     LPAREN,
     RPAREN,
@@ -23,14 +23,14 @@ typedef enum {
     SLASH,
     PERCENT,
     CARET
-} token_t;
+};
 
 struct token {
     double value;
-    token_t type;
+    enum token_type type;
 };
 
-void add_token (double value, token_t type) {
+void add_token (double value, enum token_type type) {
     struct token *ptr = malloc (sizeof (struct token));
     ptr->value = value;
     ptr->type = type;
@@ -135,7 +135,7 @@ int parse_factor (int begin, double *ret)
     puts ("parse_factor()");
     int token_cnt = 0;
     double value;
-    token_t type;
+    enum token_type type;
 
     int tmp = parse_primary_expr (begin, &value);
     if (tmp >= 0) { 
@@ -185,7 +185,7 @@ int parse_term (int begin, double *ret)
                 || arr[begin + token_cnt]->type == SLASH
                 || arr[begin + token_cnt]->type == PERCENT ))
     {
-        token_t type = arr[begin + token_cnt]->type;
+        enum token_type type = arr[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_factor (begin + token_cnt, &right);
         switch (type) {
@@ -216,7 +216,7 @@ int parse_expr (int begin, double *ret)
             && (arr[begin + token_cnt]->type == PLUS 
                 || arr[begin + token_cnt]->type == MINUS ))
     {
-        token_t type = arr[begin + token_cnt]->type;
+        enum token_type type = arr[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_term (begin + token_cnt, &right);
         switch (type) {
