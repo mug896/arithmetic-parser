@@ -1,4 +1,22 @@
-LL 파싱은 left recursion 을 제거하고 left factoring 을 해줘야한다.
+LL 파싱은  다음과 같이 작성하면 안됩니다.
+
+```
+    E -> T - E
+    E -> T + E
+    E -> T
+    T -> F * T
+    T -> F / T
+    T -> F % T
+    T -> F
+    F -> - F
+    F -> + F
+    F -> P ^ F
+    F -> P
+    P -> ( E )
+    P -> a
+```
+
+LL 파싱은 left recursion 을 제거하고 left factoring 을 해줘야 합니다.
 
 ```
     E  ->  TE'
