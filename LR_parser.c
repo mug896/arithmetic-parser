@@ -223,19 +223,19 @@ int parse ()
         } else {
             switch (- table[state][type]) 
             {
-                case  1: REDUCE_BINARY (-); break;      // rule  1 : E -> E - T
-                case  2: REDUCE_BINARY (+); break;      // rule  2 : E -> E + T
-                case  3: REDUCE_TYPE (EXPR); break;     // rule  3 : E -> T
-                case  4: REDUCE_BINARY (*); break;      // rule  4 : T -> T * F
-                case  5: REDUCE_BINARY (/); break;      // rule  5 : T -> T / F
-                case  6: REDUCE_MOD (); break;          // rule  6 : T -> T % F
-                case  7: REDUCE_TYPE (TERM); break;     // rule  7 : T -> F
-                case  8: REDUCE_UNARY (-); break;       // rule  8 : F -> - F
-                case  9: REDUCE_UNARY (+); break;       // rule  9 : F -> + F
-                case 10: REDUCE_CARET (); break;        // rule 10 : F -> P ^ F
-                case 11: REDUCE_TYPE (FACTOR); break;   // rule 11 : F -> P
-                case 12: REDUCE_PAREN (); break;        // rule 12 : P -> ( E )
-                case 13: REDUCE_TYPE (PEXPR); break;    // rule 13 : P -> a
+                case  1: REDUCE_BINARY (-); break;           // rule  1 : E -> E - T
+                case  2: REDUCE_BINARY (+); break;           // rule  2 : E -> E + T
+                case  3: REDUCE_TYPE (EXPR); break;          // rule  3 : E -> T
+                case  4: REDUCE_BINARY (*); break;           // rule  4 : T -> T * F
+                case  5: REDUCE_BINARY (/); break;           // rule  5 : T -> T / F
+                case  6: REDUCE_MOD (); break;               // rule  6 : T -> T % F
+                case  7: REDUCE_TYPE (TERM); break;          // rule  7 : T -> F
+                case  8: REDUCE_UNARY (-); break;            // rule  8 : F -> - F
+                case  9: REDUCE_UNARY (+); break;            // rule  9 : F -> + F
+                case 10: REDUCE_CARET (); break;             // rule 10 : F -> P ^ F
+                case 11: REDUCE_TYPE (FACTOR); break;        // rule 11 : F -> P
+                case 12: REDUCE_PAREN (); break;             // rule 12 : P -> ( E )
+                case 13: REDUCE_TYPE (PEXPR); break;         // rule 13 : P -> a
             }
             PRINT_STACK ("\e[0;35mREDUC:\e[0m ");
         }
