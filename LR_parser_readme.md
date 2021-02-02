@@ -39,7 +39,7 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 
 ```
     rule 0 :	S -> E
-    rule 1 :	E -> E - T       // 기본적으로 left recursion 을 사용한다.
+    rule 1 :	E -> E - T       // 기본적으로 left recursion 을 사용해야 한다.
     rule 2 :	E -> E + T
     rule 3 :	E -> T
     rule 4 :	T -> T * F
