@@ -272,8 +272,7 @@ int push (token_t *token)
 
 token_t *pop ()
 {
-    if (sp == NULL) 
-        return NULL;
+    if (sp == NULL) return NULL;
     token_t *token = sp->token;
     struct stack *tmp = sp->prev;
     free (sp);
