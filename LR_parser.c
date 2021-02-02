@@ -35,7 +35,7 @@ struct stack {               // stack 사용을 위한 구조체로 단방향 li
 
 struct stack *sp = NULL;     // stack 의 top 을 가리키는 포인터
 
-int push (token_t *token);
+void push (token_t *token);
 token_t *pop ();
 token_t *peek ();
 
@@ -256,18 +256,17 @@ int main (int argc, char *argv[])
 
 ////////////////////////////  stack  ///////////////////////////////
 
-int push (token_t *token)
+void push (token_t *token)
 {
     struct stack *p = malloc (sizeof (struct stack));
     p->token = token;
     if (sp == NULL) {
         sp = p;
         sp->prev = NULL;
-        return 0;
+        return;
     }
     p->prev = sp;
     sp = p;
-    return 0;
 }
 
 token_t *pop ()
