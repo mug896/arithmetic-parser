@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include <stdlib.h>
 #include <math.h>
 
 #define error_exit( str ) do { \
