@@ -189,7 +189,7 @@ int parse ()
 {
     enum token_type type;
     int state;
-    token_t *tnext, *tprev, *tok1, *tok2, *tpeek;
+    token_t *tnext, *tprev, *tpeek, *tok1, *tok2;
 
     if ((tnext = next_token()) == NULL) 
         error_exit ("No available tokens exist");
