@@ -3,7 +3,7 @@
 
 
 LL 파싱은 기본적으로 left recursion 을 제거하고 left factoring 을 해줘야 합니다.   
-다음의 경우 right recursion 으로 작성되어 문제가 없지만 left factoring 을 되어있지 않습니다.
+다음의 경우 right recursion 으로 작성되어 문제가 없지만 left factoring 이 되어있지 않습니다.
 
 ```
     E -> T - E
