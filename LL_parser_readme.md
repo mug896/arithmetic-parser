@@ -24,11 +24,11 @@ LL 파싱은 기본적으로 left recursion 을 제거하고 left factoring 을 
 따라서 다음과 같이 left factoring 을 해줘야 합니다.
 
 ```
-    E  ->  TE'
+    E  ->  T E'
     E' ->  - E | + E | e
-    T  ->  FT'
+    T  ->  F T'
     T' ->  * T | / T | % T | e     // e 는 epsilon
-    F  ->  - F | + F | PF'
+    F  ->  - F | + F | P F'
     F' ->  ^ F | e
     P  ->  ( E ) | a               // a 는 NUMBER 입니다.
 ```
