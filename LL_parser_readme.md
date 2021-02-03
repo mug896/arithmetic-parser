@@ -2,7 +2,8 @@
 # LL Parser
 
 
-LL 파싱 rule 은  다음과 같이 작성하면 안됩니다.
+LL 파싱은 기본적으로 left recursion 을 제거하고 left factoring 을 해줘야 합니다.   
+다음의 경우 right recursion 으로 작성되어 문제가 없지만 left factoring 을 되어있지 않습니다.
 
 ```
     E -> T - E
@@ -20,7 +21,7 @@ LL 파싱 rule 은  다음과 같이 작성하면 안됩니다.
     P -> a
 ```
 
-LL 파싱은 left recursion 을 제거하고 다음과 같이 left factoring 을 해줘야 합니다.
+따라서 다음과 같이 left factoring 을 해줘야 합니다.
 
 ```
     E  ->  TE'
