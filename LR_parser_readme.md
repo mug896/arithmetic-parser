@@ -57,7 +57,7 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 ```
     FIRST(E)   = { - , + , ( , a }      // FOLLOW 를 구하기 위해선 먼저 FIRST 를 구해야 한다.
     FIRST(T)   = { - , + , ( , a }
-    FIRST(F)   = { - , + , ( , a }
+    FIRST(F)   = { - , + , ( , a }      // a 는 NUMBER 입니다.
     FIRST(P)   = { ( , a }
     
     FOLLOW(E)  = { - , + , ) , $ }
