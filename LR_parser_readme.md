@@ -36,7 +36,7 @@ https://www.youtube.com/channel/UC9BQ1zJdpPBit9V3IFx8GDw/videos
 - LL and LR Parsing Demystified  
 https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 
-- rule 을 입력하면 자동으로 파싱 테이블을 만들어주는 사이트
+- rule 을 입력하면 자동으로 파싱 테이블을 만들어주는 사이트  
 [SLR](http://jsmachines.sourceforge.net/machines/slr.html) , 
 [LR1](http://jsmachines.sourceforge.net/machines/lr1.html) ,
 [LALR1](http://jsmachines.sourceforge.net/machines/lalr1.html)
