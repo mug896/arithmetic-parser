@@ -208,8 +208,8 @@ int parse ()
 
         // 테이블에서 state 와 type 의 교차지점 값이 0 이면 파싱 오류가 됩니다.
         if (table[state][type] == 0) {
-            printf ("\e[0;31mERROR:\e[0m %s (STATE: %d, TOKEN: %s)\n", 
-                    "token not allowed", state, token_type_s[type]);
+            printf ("\e[0;31mERROR:\e[0m (STATE: %d, TOKEN: %s) not allowed\n"
+                    ,state, token_type_s[type]);
             exit (EXIT_FAILURE);
         }
 
