@@ -40,7 +40,7 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 [SLR](http://jsmachines.sourceforge.net/machines/slr.html) ,
 [LR1](http://jsmachines.sourceforge.net/machines/lr1.html) ,
 [LALR1](http://jsmachines.sourceforge.net/machines/lalr1.html) ,
-[소스](http://jsmachines.sourceforge.net/machines/)
+[소스코드](http://jsmachines.sourceforge.net/machines/)
 
 ```
     rule 0 :	S -> E
