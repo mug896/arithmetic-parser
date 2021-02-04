@@ -52,20 +52,20 @@ LL 파싱은 기본적으로 left recursion 을 제거하고 left factoring 을 
 ```
 
 ```
-    LOOAHEAD(E  -> TE')   = { - , + , ( , a }
-    LOOAHEAD(E' -> - E)   = { - }
-    LOOAHEAD(E' -> + E)   = { + }
-    LOOAHEAD(E' -> e)     = { ) , $ }
-    LOOAHEAD(T  -> FT')   = { - , + , ( , a }
-    LOOAHEAD(T' -> * T)   = { * }
-    LOOAHEAD(T' -> / T)   = { / }
-    LOOAHEAD(T' -> % T)   = { % }
-    LOOAHEAD(T' -> e)     = { - , + , ) , $ }
-    LOOAHEAD(F  -> -F)    = { - }
-    LOOAHEAD(F  -> +F)    = { + }
-    LOOAHEAD(F  -> PF')   = { ( , a }
-    LOOAHEAD(F' -> ^ F)   = { ^ }
-    LOOAHEAD(F' -> e)     = { * , / , % , - , + , ) , $ }
-    LOOAHEAD(P  -> (E))   = { ( }
-    LOOAHEAD(P  -> a)     = { a }
+    LOOAHEAD(E  -> T E')   = { - , + , ( , a }
+    LOOAHEAD(E' -> - E)    = { - }
+    LOOAHEAD(E' -> + E)    = { + }
+    LOOAHEAD(E' -> e)      = { ) , $ }
+    LOOAHEAD(T  -> F T')   = { - , + , ( , a }
+    LOOAHEAD(T' -> * T)    = { * }
+    LOOAHEAD(T' -> / T)    = { / }
+    LOOAHEAD(T' -> % T)    = { % }
+    LOOAHEAD(T' -> e)      = { - , + , ) , $ }
+    LOOAHEAD(F  -> - F)    = { - }
+    LOOAHEAD(F  -> + F)    = { + }
+    LOOAHEAD(F  -> P F')   = { ( , a }
+    LOOAHEAD(F' -> ^ F)    = { ^ }
+    LOOAHEAD(F' -> e)      = { * , / , % , - , + , ) , $ }
+    LOOAHEAD(P  -> ( E ))  = { ( }
+    LOOAHEAD(P  -> a)      = { a }
 ```
