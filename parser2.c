@@ -66,7 +66,7 @@ void tokenize (char *str) {
     printf ("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (arr[i]->type == NUMBER) 
-            printf ("value : %g\n", arr[i]->value);
+            printf ("value : %.10g\n", arr[i]->value);
         else
             printf ("value : %c\n", (char) arr[i]->value);
     }
@@ -75,7 +75,7 @@ void tokenize (char *str) {
 #define BINARY_EVAL( $name, $op ) \
 double $name (double left, double right) \
 { \
-    printf (#$name "() left : %g, right : %g\n", left, right); \
+    printf (#$name "() left : %.10g, right : %.10g\n", left, right); \
     return left $op right; \
 }
 
@@ -85,19 +85,19 @@ BINARY_EVAL (eval_mul, *);
 BINARY_EVAL (eval_div, /);
 
 double eval_pow (double left, double right) {
-    printf ("eval_pow() left : %g, right : %g\n", left, right);
+    printf ("eval_pow() left : %.10g, right : %.10g\n", left, right);
     return pow (left, right);
 }
 double eval_mod (double left, double right) {
-    printf ("eval_mod() left : %g, right : %g\n", left, right);
+    printf ("eval_mod() left : %.10g, right : %.10g\n", left, right);
     return fmod (left, right);
 }
 double eval_plus (double val) {
-    printf ("eval_plus() value : %g\n", val);
+    printf ("eval_plus() value : %.10g\n", val);
     return val;
 }
 double eval_minus (double val) {
-    printf ("eval_minus() value : %g\n", val);
+    printf ("eval_minus() value : %.10g\n", val);
     return - val;
 }
 
@@ -111,7 +111,7 @@ int parse_primary_expr (int begin, double *ret)
     int token_cnt = 0;
     if (arr[begin]->type == NUMBER) {
         *ret = arr[begin]->value;
-        printf ("NUMBER : %g\n", *ret);
+        printf ("NUMBER : %.10g\n", *ret);
         return 1;
     }
     if (arr[begin]->type == LPAREN) {
@@ -245,7 +245,7 @@ int main (int argc, char *argv[])
     double result;
     parse_expr (0, &result);
     puts ("============  result  ===========");
-    printf ("result : %g\n", result);
+    printf ("result : %.10g\n", result);
 
     return 0;
 }

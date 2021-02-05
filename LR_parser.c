@@ -127,7 +127,7 @@ void print_stack (struct stack *sp)    // 현재 stack 내용을 출력해 주�
         case CARET: printf ("[^]"); break;
         case LPAREN: printf ("[(]"); break;
         case RPAREN: printf ("[)]"); break;
-        case NUMBER: printf ("[%g]", sp->token->value); break;
+        case NUMBER: printf ("[%.10g]", sp->token->value); break;
         case ENDMARK: printf ("[$]"); break;
         case EXPR: printf ("[E]"); break;
         case TERM: printf ("[T]"); break;
@@ -201,7 +201,7 @@ int parse ()
         // state 가 1 이고 type 이 ENDMARK ( $ ) 이면 accept 가 되므로 결과를 출력하고 종료합니다.
         if (state == 1 && type == ENDMARK) {
             tok1 = pop();
-            printf ("===========================\nResult : %g\n", tok1->value);
+            printf ("===========================\nResult : %.10g\n", tok1->value);
             free (tok1);
             return 0;
         }
