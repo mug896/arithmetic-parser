@@ -44,7 +44,7 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 
 LR 파싱은 `LR0`, `SLR`, `LR1`, `LALR1`  여러 종류가 있는데 기본적으로
 사용하는 알고리즘은 모두 같습니다.
-단지 파싱 테이블을 만드는 방법에서 차이가 납니다.
+단지 파싱 테이블을 만드는 방법이 틀립니다.
 계산기 파서에 사용된 방법은 SLR 인데 LR0 와의 차이점은 파싱 테이블에서 reduce 항목을
 채울때 SLR 은 FOLLOW 를 계산해서 구분하지만 LR0 같은 경우는 해당 state 의 행을 
 구분 없이 모두 다 채웁니다.
