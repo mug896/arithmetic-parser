@@ -30,7 +30,10 @@ LR 파싱은 LL 파싱과 다르게 rule 을 작성할때 기본적으로 left r
 - Joongheon Kim 님의 컴파일러 강좌  
 https://www.youtube.com/watch?v=MAG4ten4nAM&list=PLalDxVXf3NHertbSsvTLOLZz0T3FyCQnI
 
-- 참고 동영상  
+- 강승식 교수님의 컴파일러 강좌   
+https://www.youtube.com/channel/UC9BQ1zJdpPBit9V3IFx8GDw/videos
+
+- 참고 동영상 :
 [LR1](https://www.youtube.com/watch?v=GyvpUVGrR8A&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=96) ,
 [LALR1](https://www.youtube.com/watch?v=DYe1RyDBRMw&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=97&t=8s) ,
 [Conflicts](https://www.youtube.com/watch?v=Nxj0g1mk5Ak&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=98&t=181s)
