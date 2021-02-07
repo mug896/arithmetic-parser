@@ -33,11 +33,6 @@ https://www.youtube.com/watch?v=MAG4ten4nAM&list=PLalDxVXf3NHertbSsvTLOLZz0T3FyC
 - 강승식 교수님의 컴파일러 강좌   
 https://www.youtube.com/channel/UC9BQ1zJdpPBit9V3IFx8GDw/videos
 
-- 참고 동영상 :
-[LR1](https://www.youtube.com/watch?v=GyvpUVGrR8A&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=96) ,
-[LALR1](https://www.youtube.com/watch?v=DYe1RyDBRMw&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=97&t=8s) ,
-[Conflicts](https://www.youtube.com/watch?v=Nxj0g1mk5Ak&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=98&t=181s)
-
 - LL and LR Parsing Demystified  
 https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 
@@ -46,6 +41,12 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 [LR1](http://jsmachines.sourceforge.net/machines/lr1.html) ,
 [LALR1](http://jsmachines.sourceforge.net/machines/lalr1.html) ,
 [소스코드](http://jsmachines.sourceforge.net/machines/)
+
+- 참고 동영상 :
+[LR1](https://www.youtube.com/watch?v=GyvpUVGrR8A&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=96) ,
+[LALR1](https://www.youtube.com/watch?v=DYe1RyDBRMw&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=97&t=8s) ,
+[Conflicts](https://www.youtube.com/watch?v=Nxj0g1mk5Ak&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=98&t=181s)
+
 
 LR 파싱은 `LR0`, `SLR`, `LR1`, `LALR1`  여러 종류가 있는데 기본적으로
 사용하는 알고리즘은 모두 같습니다.
