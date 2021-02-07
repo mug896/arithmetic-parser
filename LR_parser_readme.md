@@ -67,7 +67,7 @@ reduce 가 되지만 `T -> F. , a` 와같이 lookahead 가 붙는 LR1 아이템�
 따라서 어떤 방법이 제일 강력한가를 따질 때는 `LR0 < SLR < LALR1 < LR1` 순서가 됩니다.
 LALR1 은 LR1 방식이 파싱 테이블이 너무 커지니까 
  lookahead 만 틀리고 LR0 아이템은 같은 경우 `T -> F. , a` 와 `T -> F. , b` 를 
- `T -> F. a/b` 하나로 merge 해서 상태를 줄여나가는 방법입니다.
+ `T -> F. a/b` 하나로 merge 해서 상태를 줄이는 방법입니다.
 
 ```
     rule 0 :	S -> E
