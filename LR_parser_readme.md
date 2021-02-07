@@ -42,7 +42,7 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 [LALR1](http://jsmachines.sourceforge.net/machines/lalr1.html) ,
 [소스코드](http://jsmachines.sourceforge.net/machines/)
 
-LR 파서는 `LR0`, `SLR`, `LR1`, `LALR1`  여러 종류가 있는데 기본적으로
+LR 파싱은 `LR0`, `SLR`, `LR1`, `LALR1`  여러 종류가 있는데 기본적으로
 사용하는 알고리즘은 모두 같습니다.
 단지 파싱 테이블을 만드는 방법에서 차이가 납니다.
 계산기 파서에 사용된 방법은 SLR 인데 LR0 와의 차이점은 파싱 테이블에서 reduce 항목을
