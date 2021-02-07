@@ -43,6 +43,7 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 [소스코드](http://jsmachines.sourceforge.net/machines/)
 
 - 참고 동영상 :
+[lookahead](https://www.youtube.com/watch?v=9BpEbPpYUHs&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=95&t=388s) ,
 [LR1](https://www.youtube.com/watch?v=GyvpUVGrR8A&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=96) ,
 [LALR1](https://www.youtube.com/watch?v=DYe1RyDBRMw&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=97&t=8s) ,
 [Conflicts](https://www.youtube.com/watch?v=Nxj0g1mk5Ak&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=98&t=181s)
