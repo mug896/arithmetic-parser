@@ -56,7 +56,7 @@ LR 파싱은 `LR0`, `SLR`, `LR1`, `LALR1`  여러 종류가 있는데 기본적�
 채울때 SLR 은 FOLLOW 를 계산해서 구분하지만 LR0 같은 경우는 해당 state 의 행을 
 구분 없이 모두 다 채웁니다.
 LR0, SLR 에서 사용되는 아이템을 LR0 아이템이라고 하는데 LR1, LALR1 에서는
-lookahead 가 붙은 LR1 아이템을 사용합니다.
+lookahead 가 붙는 LR1 아이템을 사용합니다.
 예를 들어 `T -> F.` LR0 아이템이 있을 경우 LR0 에서는 stack 에 있는 `F` 가 무조건 `T` 로
 reduce 가 되지만 `T -> F. , a` 와같이 lookahead 가 붙은 LR1 아이템을
 사용하는 LR1 에서는 다음에 오는 토큰이 `a` 일 때만 reduce 가 됩니다.
