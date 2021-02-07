@@ -42,6 +42,26 @@ https://blog.reverberate.org/2013/07/ll-and-lr-parsing-demystified.html
 [LALR1](http://jsmachines.sourceforge.net/machines/lalr1.html) ,
 [소스코드](http://jsmachines.sourceforge.net/machines/)
 
+LR 파서는 `LR0`, `SLR`, `LR1`, `LALR1`  여러 종류가 있는데 기본적으로
+사용하는 알고리즘은 모두 같습니다.
+단지 파싱 테이블을 만드는 방법에서 차이가 납니다.
+계산기 파서에 사용된 방법은 SLR 인데 LR0 와의 차이점은 파싱 테이블에서 reduce 항목을
+채울때 SLR 은 FOLLOW 를 계산해서 구분하지만 LR0 같은 경우는 해당 state 의 행을 
+구분 없이 무조건 다 채웁니다.
+LR0, SLR 에서 사용되는 아이템을 LR0 아이템이라고 하는데 LR1, LALR1 에서는
+lookahead 가 붙은 LR1 아이템을 사용합니다.
+예를 들어 `T -> F.` LR0 아이템이 있을 경우 LR0 에서는 stack 에 있는 `F` 가 무조건 `T` 로
+reduce 가 되지만 `T -> F. , a` 와같이 lookahead 가 붙은 LR1 아이템을
+사용하는 LR1 에서는 다음에 오는 토큰이 `a` 일 때만 reduce 가 됩니다.
+
+( 여기서 lookahead 는 실제 FOLLOW 와 같습니다. 따라서 위에서 파싱 테이블을 만들어
+  주는 사이트에서 결과를 출력해 보면 LR1, LALR1 은 따로 FOLLOW 값이 출력되지 않습니다. )
+
+따라서 어떤 방법이 제일 강력한가를 따질 때는 `LR0 < SLR < LALR1 < LR1` 순서가 됩니다.
+LALR1 은 LR1 방식이 파싱 테이블이 너무 커지니까 
+ lookahead 만 틀리고 LR0 아이템은 같은 경우 `T -> F. , a` 와 `T -> F. , b` 를 
+ `T -> F. a/b` 하나로 merge 해서 상태를 줄여나가는 방법입니다.
+
 ```
     rule 0 :	S -> E
     rule 1 :	E -> E - T       // 기본적으로 left recursion 을 사용해야 한다.
