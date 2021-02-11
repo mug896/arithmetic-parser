@@ -106,10 +106,10 @@ next :
                    break;
         default  : cpos += 1; goto next;
     }
+    cpos += 1;
     struct token *p = malloc (sizeof (struct token));
     p->value = value;
     p->type = type;
-    cpos += 1;
     return p;
 }
 
