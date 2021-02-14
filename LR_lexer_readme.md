@@ -52,9 +52,9 @@ next_digit:
                             break;
                         }
                         error_exit ("not a number");              // 다를 경우는 오류가 된다.
-                   }
+                   }                                              // ( 예: 상태 A 에서 종료할 경우 )
                    if (cur_stat == 0)                             // 테이블의 0 값을 가리키면 오류가 된다.
-                       error_exit ("not a number");
+                       error_exit ("not a number");               // ( 예: 상태 A or C 에서 "." 이 입력될 경우 )
                    buf[j++] = input_str[i++]; 
                    goto next_digit;
 
