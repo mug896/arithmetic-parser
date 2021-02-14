@@ -8,6 +8,15 @@
 
 
 
+- Regular expression 을 입력하면 자동으로 transition 테이블을 만들어주는 사이트  
+https://cyberzhg.github.io/toolbox/min_dfa
+
+- Thomson's and Subset Construction 을 이용한 regex 을 DFA 로 변환하는 방법  
+[강좌1](https://www.youtube.com/watch?v=vt2x0W_jcPU&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=109) ,
+[강좌2](https://www.youtube.com/watch?v=BgcBmdU_KOQ&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=110)
+
+
+
 ![](lexer.png)
 
 
