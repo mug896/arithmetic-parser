@@ -7,6 +7,7 @@
 
 
 ```c
+// 위에서 작성한 테이블 값을 그대로 array 로 변환한 것입니다.
 const char lex_table[4][2] = {
     2, 1,
     3, 0,
@@ -40,19 +41,19 @@ next_token :
         case '6' : case '7' : case '8' : case '9' : case '0' : case '.' :
                    i = cpos, j = 0; 
 next_digit:                   
-                   if (isdigit (input_str[i])) {
-                       cur_stat = lex_table[cur_stat][0];
-                   } else if (input_str[i] == '.') {
+                   if (isdigit (input_str[i])) {               // input char 가 숫자일 경우
+                       cur_stat = lex_table[cur_stat][0];      // cur_stat 을 테이블 값에 따라 이동
+                   } else if (input_str[i] == '.') {           // input char 가 "." 일 경우
                        cur_stat = lex_table[cur_stat][1];
-                   } else {
-                        if (cur_stat == 2 || cur_stat == 3) {
-                            buf[j] = '\0'; cpos = i - 1;
+                   } else {                                    // 그 밖의 문자는 마지막을 의미하므로
+                        if (cur_stat == 2 || cur_stat == 3) {  // cur_stat 가 accept 와 같은지 비교하고
+                            buf[j] = '\0'; cpos = i - 1;       // ( accept : B = 2, C = 3 )
                             value = atof(buf); type = NUMBER;
                             break;
                         }
-                        error_exit ("not a number");
+                        error_exit ("not a number");           // 다를 경우는 오류가 된다.
                    }
-                   if (cur_stat == 0)
+                   if (cur_stat == 0)                          // 테이블의 0  값을 가리키면 오류가 된다.
                        error_exit ("not a number");
                    buf[j++] = input_str[i++]; 
                    goto next_digit;
