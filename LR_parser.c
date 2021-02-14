@@ -5,7 +5,7 @@
 #include <math.h>
 
 #define error_exit( str ) do { \
-    fprintf (stderr, "ERROR : " str "\n" ); exit (1); \
+    fputs ("ERROR: " str "\n", stderr); exit (1); \
 } while (0)
 
 const char *input_str;       // 입력 스트링 argv[1] 을 대입해 사용
