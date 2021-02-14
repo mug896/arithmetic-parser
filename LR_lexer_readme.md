@@ -64,7 +64,7 @@ next_digit:
                             buf[j] = '\0'; cpos = i - 1;          // ( accept : B = 2, C = 3 )
                             value = atof(buf); type = NUMBER;
                             break;
-                        }                                         // 다를 경우는 오류가 된다.
+                        }                                         // 다를 경우는 오류가 됩니다.
                         error_exit ("not a number");              // ( 예: 상태 A 에서 종료할 경우 )
                    }
                    if (cur_stat == 0)                             // 테이블의 0 값을 가리키면 오류가 된다.
