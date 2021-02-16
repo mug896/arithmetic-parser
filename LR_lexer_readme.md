@@ -12,7 +12,7 @@
     1. [유한오토마타 소개](https://www.youtube.com/watch?v=TzXOj-XRC-U&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=113)
     2. [유한오토마타 NFA - DFA 변환](https://www.youtube.com/watch?v=AZQV8nFoVts&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=114&t=2s)
     3. [유한오토마타 eNFA - DFA 변환](https://www.youtube.com/watch?v=NWmHcr5oGAU&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=115&t=15s)
-    4. [유한오토마타 DFA 최적화](https://www.youtube.com/watch?v=6mdKCBX4kdA&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=116), [참조](https://www.youtube.com/watch?v=53qT4NZ3nOo&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=112)
+    4. [유한오토마타 DFA 최적화](https://www.youtube.com/watch?v=6mdKCBX4kdA&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=116), ([참조](https://www.youtube.com/watch?v=53qT4NZ3nOo&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=112))
     5. [eNFA - DFA 변환](https://www.youtube.com/watch?v=cBTXRaupF9k&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=117)
 
 - Thomson's and Subset Construction 을 이용해 RE 을 DFA 로 변환하는 방법  
