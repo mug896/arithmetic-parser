@@ -19,10 +19,10 @@ https://cyberzhg.github.io/toolbox/min_dfa
     5. [eNFA - DFA 변환](https://www.youtube.com/watch?v=cBTXRaupF9k&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=117)
 
 - Thomson's and Subset Construction 을 이용해 RE 을 DFA 로 변환하는 방법  
-1. [Constructing NFA using Thompson's construction Ex.1](https://www.youtube.com/watch?v=DryssBQeOaM&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=107)
-2. [Constructing NFA Using Thompson's Construction Ex.2](https://www.youtube.com/watch?v=tPBh8MOw8_Y&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=108)
-3. [RE to DFA using Thomson's and Subset Construction Ex.1](https://www.youtube.com/watch?v=vt2x0W_jcPU&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=109)
-4. [RE to DFA using Thompson's and Subset Construction Ex.2](https://www.youtube.com/watch?v=BgcBmdU_KOQ&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=110)
+    1. [Constructing NFA using Thompson's construction Ex.1](https://www.youtube.com/watch?v=DryssBQeOaM&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=107)
+    2. [Constructing NFA Using Thompson's Construction Ex.2](https://www.youtube.com/watch?v=tPBh8MOw8_Y&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=108)
+    3. [RE to DFA using Thomson's and Subset Construction Ex.1](https://www.youtube.com/watch?v=vt2x0W_jcPU&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=109)
+    4. [RE to DFA using Thompson's and Subset Construction Ex.2](https://www.youtube.com/watch?v=BgcBmdU_KOQ&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=110)
 
 
 ![](lexer.png)
