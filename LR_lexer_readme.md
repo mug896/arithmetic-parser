@@ -55,14 +55,14 @@ next_token :
     int cur_stat = 0; 
     switch (input_str[cpos]) 
     {
-        case '(' : value = '('; type = LPAREN; break;
-        case ')' : value = ')'; type = RPAREN; break;
-        case '+' : value = '+'; type = PLUS; break;
-        case '-' : value = '-'; type = MINUS; break;
+        case '(' : value = '('; type = LPAREN;   break;
+        case ')' : value = ')'; type = RPAREN;   break;
+        case '+' : value = '+'; type = PLUS;     break;
+        case '-' : value = '-'; type = MINUS;    break;
         case '*' : value = '*'; type = ASTERISK; break;
-        case '/' : value = '/'; type = SLASH; break;
-        case '%' : value = '%'; type = PERCENT; break;
-        case '^' : value = '^'; type = CARET; break;
+        case '/' : value = '/'; type = SLASH;    break;
+        case '%' : value = '%'; type = PERCENT;  break;
+        case '^' : value = '^'; type = CARET;    break;
         case '1' : case '2' : case '3' : case '4' : case '5' :
         case '6' : case '7' : case '8' : case '9' : case '0' : case '.' :
                    i = cpos, j = 0; 
