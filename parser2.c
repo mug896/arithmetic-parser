@@ -42,14 +42,14 @@ void tokenize (char *str) {
     {
         switch (str[i]) 
         {
-            case '(' : puts("paran-open"); add_token ('(', LPAREN); break;
-            case ')' : puts("paran-close"); add_token (')', RPAREN); break;
-            case '+' : puts("plus"); add_token ('+', PLUS); break;
-            case '-' : puts("minus"); add_token ('-', MINUS); break;
-            case '*' : puts("asterisk"); add_token ('*', ASTERISK); break;
-            case '/' : puts("slash"); add_token ('/', SLASH); break;
-            case '%' : puts("percent"); add_token ('%', PERCENT); break;
-            case '^' : puts("caret"); add_token ('^', CARET); break;
+            case '(' : puts("paran-open");  add_token ('(', LPAREN);   break;
+            case ')' : puts("paran-close"); add_token (')', RPAREN);   break;
+            case '+' : puts("plus");        add_token ('+', PLUS);     break;
+            case '-' : puts("minus");       add_token ('-', MINUS);    break;
+            case '*' : puts("asterisk");    add_token ('*', ASTERISK); break;
+            case '/' : puts("slash");       add_token ('/', SLASH);    break;
+            case '%' : puts("percent");     add_token ('%', PERCENT);  break;
+            case '^' : puts("caret");       add_token ('^', CARET);    break;
             case '1' : case '2' : case '3' : case '4' : case '5' :
             case '6' : case '7' : case '8' : case '9' : case '0' : case '.' :
                        puts("number"); j = 0; 
