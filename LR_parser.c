@@ -137,10 +137,10 @@ void print_stack (struct stack *sp)    // 현재 stack 내용을 출력해 주�
 }
 
 #define PRINT_STACK( $str ) \
-    printf ($str); print_stack (sp); puts("");
+    printf ($str); print_stack (sp); puts("")
 
 #define SET_STATE() tpeek = peek(); \
-    tprev->state = table[ tpeek == NULL ? 0 : tpeek->state ][tprev->type];
+    tprev->state = table[ tpeek == NULL ? 0 : tpeek->state ][tprev->type]
 
 #define REDUCE_BINARY( $op ) do { \
     tok2 = pop(); tok1 = pop(); tprev = pop(); \
