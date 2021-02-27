@@ -71,10 +71,10 @@ next_digit:
                    if (isdigit (input_str[i])) {                  // input char 가 숫자일 경우
                        cur_stat = lex_table[cur_stat][0];         // cur_stat 을 테이블 값에 따라 이동
                    } 
-                   else if (input_str[i] == '.') {              // input char 가 "." 일 경우
+                   else if (input_str[i] == '.') {                // input char 가 "." 일 경우
                        cur_stat = lex_table[cur_stat][1];         // cur_stat 을 테이블 값에 따라 이동
                    } 
-                   else {                                       // 그 밖의 문자는 마지막을 의미하므로
+                   else {                                         // 그 밖의 문자는 마지막을 의미하므로
                         if (cur_stat == 2 || cur_stat == 3) {     // cur_stat 가 accept 인지 비교하고
                             buf[j] = '\0'; cpos = i - 1;          // ( accept : B = 2, C = 3 )
                             value = atof(buf); type = NUMBER;
