@@ -34,6 +34,9 @@ https://cyberzhg.github.io/toolbox/min_dfa
 
 
 ```c
+/*
+ *   LR_parser.c 파일에서 next_token 함수를 아래의 코드로 변경해 사용.
+ */
 // 위에서 작성한 테이블 값을 그대로 array 로 변환한 것입니다.
 const char lex_table[4][2] = {
     2, 1,
