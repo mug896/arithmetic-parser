@@ -20,7 +20,7 @@ enum token_type
     RPAREN, NUMBER, ENDMARK, EXPR, TERM, FACTOR, PEXPR
 };
 
-const char *token_type_s[] = {
+const char * const token_type_s[] = {
     "PLUS", "MINUS", "ASTERISK", "SLASH", "PERCENT", "CARET", "LPAREN",
     "RPAREN", "NUMBER", "ENDMARK", "EXPR", "TERM", "FACTOR", "PEXPR"
 };
