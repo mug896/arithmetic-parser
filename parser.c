@@ -9,7 +9,7 @@
 #include <math.h>
 
 #define error_exit( str ) do { \
-    fprintf (stderr, "ERROR : " str "\n" ); exit (1); \
+    fputs("ERROR : " str "\n", stderr ); exit(1); \
 } while (0)
 
 struct token *arr[1000];
