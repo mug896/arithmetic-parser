@@ -8,9 +8,10 @@
 #include <string.h>
 #include <math.h>
 
-#define error_exit( str ) do { \
-    fputs("ERROR: " str "\n", stderr); exit(1); \
-} while (0)
+void error_exit(char *msg) { 
+    fprintf(stderr, "ERROR: %s\n", msg); 
+    exit(EXIT_FAILURE);
+}
 
 const char *input_str;       // 입력 스트링 argv[1] 을 대입해 사용
 
@@ -195,7 +196,7 @@ int parse ()
     token_t *tnext, *tprev, *tpeek, *tok1, *tok2;
 
     if ((tnext = next_token()) == NULL) 
-        error_exit ("No available tokens exist");
+        error_exit("No available tokens exist");
     while (1) 
     {
         type = (tnext == NULL ? ENDMARK : tnext->type);
@@ -248,7 +249,7 @@ int parse ()
 int main (int argc, char *argv[]) 
 {
     if (argc < 2)
-        error_exit ("Arithmetic expression required");
+        error_exit("Arithmetic expression required");
 
     input_str = argv[1];
 

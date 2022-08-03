@@ -8,9 +8,10 @@
 #include <string.h>
 #include <math.h>
 
-#define error_exit( str ) do { \
-    fputs("ERROR : " str "\n", stderr); exit(1); \
-} while (0)
+void error_exit(char *msg) { 
+    fprintf(stderr, "ERROR: %s\n", msg); 
+    exit(EXIT_FAILURE);
+}
 
 struct token *arr[1000];
 int end = 0;
