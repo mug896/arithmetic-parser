@@ -88,7 +88,7 @@ token_t *next_token()
     char buf[20] = {}; 
 
 next :
-    if (cpos >= strlen (input_str))
+    if (cpos >= strlen(input_str))
         return NULL;
     int i, j;
     switch (input_str[cpos]) 
@@ -104,7 +104,7 @@ next :
         case '1' : case '2' : case '3' : case '4' : case '5' :
         case '6' : case '7' : case '8' : case '9' : case '0' : case '.' :
                    i = cpos, j = 0; 
-                   while (isdigit (input_str[i]) || input_str[i] == '.')
+                   while (isdigit(input_str[i]) || input_str[i] == '.')
                        buf[j++] = input_str[i++]; 
                    buf[j] = '\0'; cpos = i - 1;
                    value = atof(buf); type = NUMBER;
@@ -124,25 +124,25 @@ void print_stack(struct stack *sp)    // 현재 stack 내용을 출력해 주는
         print_stack(sp->prev);
 
     switch (sp->token->type) {
-        case PLUS:     printf ("[+]");  break;
-        case MINUS:    printf ("[-]");  break;
-        case ASTERISK: printf ("[*]");  break;
-        case SLASH:    printf ("[/]");  break;
-        case PERCENT:  printf ("[%%]"); break;
-        case CARET:    printf ("[^]");  break;
-        case LPAREN:   printf ("[(]");  break;
-        case RPAREN:   printf ("[)]");  break;
-        case NUMBER:   printf ("[%.10g]", sp->token->value); break;
-        case ENDMARK:  printf ("[$]");  break;
-        case EXPR:     printf ("[E]");  break;
-        case TERM:     printf ("[T]");  break;
-        case FACTOR:   printf ("[F]");  break;
-        case PEXPR:    printf ("[P]");  break;
+        case PLUS:     printf("[+]");  break;
+        case MINUS:    printf("[-]");  break;
+        case ASTERISK: printf("[*]");  break;
+        case SLASH:    printf("[/]");  break;
+        case PERCENT:  printf("[%%]"); break;
+        case CARET:    printf("[^]");  break;
+        case LPAREN:   printf("[(]");  break;
+        case RPAREN:   printf("[)]");  break;
+        case NUMBER:   printf("[%.10g]", sp->token->value); break;
+        case ENDMARK:  printf("[$]");  break;
+        case EXPR:     printf("[E]");  break;
+        case TERM:     printf("[T]");  break;
+        case FACTOR:   printf("[F]");  break;
+        case PEXPR:    printf("[P]");  break;
     }
 }
 
 #define PRINT_STACK( $str ) \
-    printf ($str); print_stack (sp); puts("")
+    printf($str); print_stack(sp); puts("")
 
 #define SET_STATE() tpeek = peek(); \
     tprev->state = table[ tpeek == NULL ? 0 : tpeek->state ][tprev->type]
@@ -151,42 +151,42 @@ void print_stack(struct stack *sp)    // 현재 stack 내용을 출력해 주는
     tok2 = pop(); tok1 = pop(); tprev = pop(); \
     tprev->value = tprev->value $op tok2->value; \
     SET_STATE(); \
-    push (tprev); free (tok2); free (tok1); \
+    push(tprev); free(tok2); free(tok1); \
 } while (0)
 
 #define REDUCE_MOD() do { \
     tok2 = pop(); tok1 = pop(); tprev = pop(); \
-    tprev->value = fmod (tprev->value, tok2->value); \
+    tprev->value = fmod(tprev->value, tok2->value); \
     SET_STATE(); \
-    push (tprev); free (tok2); free (tok1); \
+    push(tprev); free(tok2); free(tok1); \
 } while (0)
 
 #define REDUCE_CARET() do { \
     tprev = pop(); tok2 = pop(); tok1 = pop(); \
-    tprev->value = pow (tok1->value, tprev->value); \
+    tprev->value = pow(tok1->value, tprev->value); \
     SET_STATE(); \
-    push (tprev); free (tok2); free (tok1); \
+    push(tprev); free(tok2); free(tok1); \
 } while (0)
 
 #define REDUCE_UNARY( $op ) do { \
     tprev = pop(); tok1 = pop(); \
     tprev->value = $op tprev->value; \
     SET_STATE(); \
-    push (tprev); free (tok1); \
+    push(tprev); free(tok1); \
 } while (0)
 
 #define REDUCE_PAREN() do { \
     tok2 = pop(); tprev = pop(); tok1 = pop(); \
     tprev->type = PEXPR; \
     SET_STATE(); \
-    push (tprev); free (tok2); free (tok1); \
+    push(tprev); free(tok2); free(tok1); \
 } while (0)
 
 #define REDUCE_TYPE( $type ) do { \
     tprev = pop(); \
     tprev->type = $type; \
     SET_STATE(); \
-    push (tprev); \
+    push(tprev); \
 } while (0)
 
 int parse() 
@@ -206,42 +206,42 @@ int parse()
         // state 가 1 이고 type 이 ENDMARK ( $ ) 이면 accept 가 되므로 결과를 출력하고 종료합니다.
         if (state == 1 && type == ENDMARK) {
             tok1 = pop();
-            printf ("===========================\nResult : %.10g\n", tok1->value);
-            free (tok1);
+            printf("===========================\nResult : %.10g\n", tok1->value);
+            free(tok1);
             return 0;
         }
 
         // 테이블에서 state 와 type 의 교차지점 값이 0 이면 파싱 오류가 됩니다.
         if (table[state][type] == 0) {
-            printf ("\e[0;31mERROR:\e[0m (STATE: %d, TOKEN: %s) not allowed\n"
+            printf("\e[0;31mERROR:\e[0m (STATE: %d, TOKEN: %s) not allowed\n"
                     ,state, token_type_s[type]);
-            exit (EXIT_FAILURE);
+            exit(EXIT_FAILURE);
         }
 
         // 테이블에서 state 와 type 의 교차지점 값이 양수면 shift 가 되고 음수면 reduce 가 됩니다.
         if (table[state][type] > 0) {
             tnext->state = table[state][type];
-            push (tnext);
+            push(tnext);
             tnext = next_token(); 
-            PRINT_STACK ("\e[0;36mSHIFT:\e[0m ");
+            PRINT_STACK("\e[0;36mSHIFT:\e[0m ");
         } else {
             switch (- table[state][type]) 
             {
-                case  1: REDUCE_BINARY (-);    break;      // rule  1 : E -> E - T
-                case  2: REDUCE_BINARY (+);    break;      // rule  2 : E -> E + T
-                case  3: REDUCE_TYPE (EXPR);   break;      // rule  3 : E -> T
-                case  4: REDUCE_BINARY (*);    break;      // rule  4 : T -> T * F
-                case  5: REDUCE_BINARY (/);    break;      // rule  5 : T -> T / F
-                case  6: REDUCE_MOD ();        break;      // rule  6 : T -> T % F
-                case  7: REDUCE_TYPE (TERM);   break;      // rule  7 : T -> F
-                case  8: REDUCE_UNARY (-);     break;      // rule  8 : F -> - F
-                case  9: REDUCE_UNARY (+);     break;      // rule  9 : F -> + F
-                case 10: REDUCE_CARET ();      break;      // rule 10 : F -> P ^ F
-                case 11: REDUCE_TYPE (FACTOR); break;      // rule 11 : F -> P
-                case 12: REDUCE_PAREN ();      break;      // rule 12 : P -> ( E )
-                case 13: REDUCE_TYPE (PEXPR);  break;      // rule 13 : P -> a
+                case  1: REDUCE_BINARY(-);    break;      // rule  1 : E -> E - T
+                case  2: REDUCE_BINARY(+);    break;      // rule  2 : E -> E + T
+                case  3: REDUCE_TYPE(EXPR);   break;      // rule  3 : E -> T
+                case  4: REDUCE_BINARY(*);    break;      // rule  4 : T -> T * F
+                case  5: REDUCE_BINARY(/);    break;      // rule  5 : T -> T / F
+                case  6: REDUCE_MOD();        break;      // rule  6 : T -> T % F
+                case  7: REDUCE_TYPE(TERM);   break;      // rule  7 : T -> F
+                case  8: REDUCE_UNARY(-);     break;      // rule  8 : F -> - F
+                case  9: REDUCE_UNARY(+);     break;      // rule  9 : F -> + F
+                case 10: REDUCE_CARET();      break;      // rule 10 : F -> P ^ F
+                case 11: REDUCE_TYPE(FACTOR); break;      // rule 11 : F -> P
+                case 12: REDUCE_PAREN();      break;      // rule 12 : P -> ( E )
+                case 13: REDUCE_TYPE(PEXPR);  break;      // rule 13 : P -> a
             }
-            PRINT_STACK ("\e[0;35mREDUC:\e[0m ");
+            PRINT_STACK("\e[0;35mREDUC:\e[0m ");
         }
     }
 }
