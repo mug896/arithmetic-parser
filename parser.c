@@ -165,7 +165,7 @@ double eval_literal(node *this)
 } while (0)
 
 #define MAKE_UNARY_NODE( $child, $eval, $ast ) do { \
-    unary_node *p = malloc(sizeof (unary_node)); \
+    unary_node *p = malloc(sizeof(unary_node)); \
     p->child = $child; \
     p->eval = $eval; \
     $ast = (node *) p; \
@@ -173,7 +173,7 @@ double eval_literal(node *this)
 } while (0)
 
 #define MAKE_BINARY_NODE( $left, $right, $eval, $ast ) do { \
-    binary_node *p = malloc(sizeof (binary_node)); \
+    binary_node *p = malloc(sizeof(binary_node)); \
     p->left = $left; \
     p->right = $right; \
     p->eval = $eval; \

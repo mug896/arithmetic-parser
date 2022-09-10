@@ -158,7 +158,7 @@ int parse_factor(int begin, double *ret)
         return tmp; 
     }
     if (toks[begin]->type != PLUS && toks[begin]->type != MINUS)
-        error_exit ("Only unary PLUS or MINUS allowed");
+        error_exit("Only unary PLUS or MINUS allowed");
 
     token_cnt++;
     token_cnt += parse_factor(begin + 1, &value);
