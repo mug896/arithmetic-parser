@@ -34,14 +34,16 @@ struct token {
     enum token_type type;
 };
 
-void add_token (double value, enum token_type type) {
+void add_token (double value, enum token_type type) 
+{
     struct token *ptr = malloc (sizeof (struct token));
     ptr->value = value;
     ptr->type = type;
     toks[end++] = ptr;
 }
 
-void tokenize (char *str) {
+void tokenize (char *str)
+{
     char buf[20] = {}; int j;
     for (int i = 0; i < strlen(str); i++) 
     {
