@@ -236,7 +236,7 @@ int parse_factor(int begin, node **ast)
 
     int tmp = parse_primary_expr(begin, &child);
     if (tmp >= 0) { 
-        if (begin + tmp < end && toks[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
+        if (begin + tmp < end && toks[begin + tmp]->type == CARET) {      // "^" 연산자는 오른쪽부터 계산하는 
             int token_cnt = tmp;                                          // right associativity 로써 트리를
             node *right;                                                  // 오른쪽에 만들어 나가야합니다.
             token_cnt++;                                                  // 따라서 while 문을 이용해 트리를 만들지 않고
