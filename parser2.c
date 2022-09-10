@@ -254,6 +254,6 @@ int main (int argc, char *argv[])
     parse_expr (0, &result);
     puts ("============  result  ===========");
     printf ("result : %.10g\n", result);
-
+    free (toks);
     return 0;
 }

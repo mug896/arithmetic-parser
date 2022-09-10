@@ -344,6 +344,6 @@ int main (int argc, char *argv[])
     parse_expr (0, &ast);
     puts ("============  eval()  ===========");
     printf ("result : %.10g\n", ast->eval (ast));
-
+    free (toks);
     return 0;
 }
