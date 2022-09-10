@@ -81,9 +81,9 @@ void tokenize(char *str)
 }
 
 #define BINARY_EVAL( $name, $op ) \
-double $name (double left, double right) \
+double $name(double left, double right) \
 { \
-    printf (#$name "() left : %.10g, right : %.10g\n", left, right); \
+    printf(#$name "() left : %.10g, right : %.10g\n", left, right); \
     return left $op right; \
 }
 

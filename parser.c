@@ -101,12 +101,12 @@ void tokenize(char *str)
 }
 
 #define BINARY_EVAL( $name, $op ) \
-double $name (node *this) \
+double $name(node *this) \
 { \
     node *left  = ((binary_node *) this)->left; \
     node *right = ((binary_node *) this)->right; \
     double res = left->eval(left) $op right->eval(right); \
-    puts ("free binary_node " #$name); free(this); \
+    puts("free binary_node " #$name); free(this); \
     return res; \
 }
 
@@ -157,28 +157,28 @@ double eval_literal(node *this)
 }
 
 #define MAKE_LITERAL_NODE( $value, $ast ) do { \
-    literal_node *p = malloc (sizeof (literal_node)); \
+    literal_node *p = malloc(sizeof(literal_node)); \
     p->value = $value; \
     p->eval = eval_literal; \
     $ast = (node *) p; \
-    printf ("make_literal_node : %.10g\n", $value); \
+    printf("make_literal_node : %.10g\n", $value); \
 } while (0)
 
 #define MAKE_UNARY_NODE( $child, $eval, $ast ) do { \
-    unary_node *p = malloc (sizeof (unary_node)); \
+    unary_node *p = malloc(sizeof (unary_node)); \
     p->child = $child; \
     p->eval = $eval; \
     $ast = (node *) p; \
-    puts ("make_unary_node " #$eval); \
+    puts("make_unary_node " #$eval); \
 } while (0)
 
 #define MAKE_BINARY_NODE( $left, $right, $eval, $ast ) do { \
-    binary_node *p = malloc (sizeof (binary_node)); \
+    binary_node *p = malloc(sizeof (binary_node)); \
     p->left = $left; \
     p->right = $right; \
     p->eval = $eval; \
     $ast = (node *) p; \
-    puts ("make_binary_node " #$eval); \
+    puts("make_binary_node " #$eval); \
 } while (0)
 
 /*
