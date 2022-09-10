@@ -13,7 +13,7 @@ void error_exit(char *msg) {
     exit(EXIT_FAILURE);
 }
 
-struct token *arr[1000];
+struct token **toks;
 int end = 0; 
 int paren_cnt = 0;
 
@@ -58,7 +58,7 @@ void add_token (double value, enum token_type type) {
     struct token *ptr = malloc (sizeof (struct token));
     ptr->value = value;
     ptr->type = type;
-    arr[end++] = ptr;
+    toks[end++] = ptr;
 }
 
 void tokenize (char *str) {
@@ -90,10 +90,10 @@ void tokenize (char *str) {
 
     printf ("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
-        if (arr[i]->type == NUMBER) 
-            printf ("value : %.10g\n", arr[i]->value);
+        if (toks[i]->type == NUMBER) 
+            printf ("value : %.10g\n", toks[i]->value);
         else
-            printf ("value : %c\n", (char) arr[i]->value);
+            printf ("value : %c\n", (char) toks[i]->value);
     }
 }
 
@@ -206,11 +206,11 @@ int parse_primary_expr (int begin, node **ast)
     if (begin >= end) exit(1);
 
     int token_cnt = 0;
-    if (arr[begin]->type == NUMBER) {
-        MAKE_LITERAL_NODE (arr[begin]->value, *ast);
+    if (toks[begin]->type == NUMBER) {
+        MAKE_LITERAL_NODE (toks[begin]->value, *ast);
         return 1;
     }
-    if (arr[begin]->type == LPAREN) {
+    if (toks[begin]->type == LPAREN) {
         puts (" (  LPAREN"); paren_cnt++;
         token_cnt++;
     } else 
@@ -233,7 +233,7 @@ int parse_factor (int begin, node **ast)
 
     int tmp = parse_primary_expr (begin, &child);
     if (tmp >= 0) { 
-        if (begin + tmp < end && arr[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
+        if (begin + tmp < end && toks[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
             int token_cnt = tmp;                                          // right associativity 로써 트리를
             node *right;                                                  // 오른쪽에 만들어 나가야합니다.
             token_cnt++;                                                  // 따라서 while 문을 이용해 트리를 만들지 않고
@@ -244,12 +244,12 @@ int parse_factor (int begin, node **ast)
         *ast = child;                                                     //                         2     ^
         return tmp;                                                       //                            3     4
     } 
-    if (arr[begin]->type != PLUS && arr[begin]->type != MINUS)
+    if (toks[begin]->type != PLUS && toks[begin]->type != MINUS)
         error_exit ("Only unary PLUS or MINUS allowed");
 
     token_cnt++;
     token_cnt += parse_factor (begin + 1, &child);         // "+" <factor> 와 "-" <factor> 를 만드는
-    switch (arr[begin]->type) {                            // MAKE_UNARY_NODE 의 경우도 오른쪽 <factor> 가
+    switch (toks[begin]->type) {                            // MAKE_UNARY_NODE 의 경우도 오른쪽 <factor> 가
         case PLUS :                                        // 먼저 계산이 완료돼야 하므로 자기 자신을 재귀적으로 
             MAKE_UNARY_NODE (child, eval_plus, *ast);      // 호출한후에 return 하면서 트리를 만듭니다.
             break;
@@ -269,17 +269,17 @@ int parse_term (int begin, node **ast)
     token_cnt += parse_factor (begin, &left);
 
     if (begin + token_cnt < end) {
-        if (arr[begin + token_cnt]->type == NUMBER)
+        if (toks[begin + token_cnt]->type == NUMBER)
             error_exit ("Consecutive NUMBER");
-        if (arr[begin + token_cnt]->type == LPAREN)
+        if (toks[begin + token_cnt]->type == LPAREN)
             error_exit ("Missing operator before LPAREN ?");
     }
     while ( begin + token_cnt < end 
-            && (arr[begin + token_cnt]->type == ASTERISK 
-                || arr[begin + token_cnt]->type == SLASH
-                || arr[begin + token_cnt]->type == PERCENT ))
+            && (toks[begin + token_cnt]->type == ASTERISK 
+                || toks[begin + token_cnt]->type == SLASH
+                || toks[begin + token_cnt]->type == PERCENT ))
     {
-        enum token_type type = arr[begin + token_cnt]->type;
+        enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_factor (begin + token_cnt, &right);       // 곱셉, 나눗셈은 왼쪽부터 계산하는
         switch (type) {                                              // left associativity 이므로 parse_factor() 
@@ -307,10 +307,10 @@ int parse_expr (int begin, node **ast)
     token_cnt += parse_term (begin, &left);
 
     while ( begin + token_cnt < end 
-            && (arr[begin + token_cnt]->type == PLUS 
-                || arr[begin + token_cnt]->type == MINUS ))
+            && (toks[begin + token_cnt]->type == PLUS 
+                || toks[begin + token_cnt]->type == MINUS ))
     {
-        enum token_type type = arr[begin + token_cnt]->type;
+        enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_term (begin + token_cnt, &right);         // 덧셈, 뺄셈도 왼쪽부터 계산하는
         switch (type) {                                              // left associativity 이므로 parse_term() 
@@ -322,7 +322,7 @@ int parse_expr (int begin, node **ast)
             default : ;                                              //                        2     3
         }
     }
-    if (begin + token_cnt < end && arr[begin + token_cnt]->type == RPAREN 
+    if (begin + token_cnt < end && toks[begin + token_cnt]->type == RPAREN 
         && paren_cnt == 0) error_exit ("Parentheses missmatch");
 
     *ast = left;
@@ -335,6 +335,7 @@ int main (int argc, char *argv[])
         error_exit ("Arithmetic expression required");
 
     puts ("==========  tokenize()  =========");
+    toks = malloc(sizeof(void *) * strlen(argv[1]));
     tokenize (argv[1]);
     puts ("===========  parse()  ===========");
     node *ast;
