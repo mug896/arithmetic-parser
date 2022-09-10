@@ -8,7 +8,8 @@
 #include <string.h>
 #include <math.h>
 
-void error_exit(char *msg) { 
+void error_exit(char *msg)
+{ 
     fprintf(stderr, "ERROR: %s\n", msg); 
     exit(EXIT_FAILURE);
 }
@@ -54,48 +55,48 @@ typedef struct binary_node {
     struct node *right;
 } binary_node;
 
-void add_token (double value, enum token_type type) 
+void add_token(double value, enum token_type type) 
 {
-    struct token *ptr = malloc (sizeof (struct token));
+    struct token *ptr = malloc(sizeof(struct token));
     ptr->value = value;
     ptr->type = type;
     toks[end++] = ptr;
 }
 
-void tokenize (char *str) 
+void tokenize(char *str) 
 {
     char buf[20] = {}; int j;
     for (int i = 0; i < strlen(str); i++) 
     {
         switch (str[i]) 
         {
-            case '(' : puts("paran-open");  add_token ('(', LPAREN);   break;
-            case ')' : puts("paran-close"); add_token (')', RPAREN);   break;
-            case '+' : puts("plus");        add_token ('+', PLUS);     break;
-            case '-' : puts("minus");       add_token ('-', MINUS);    break;
-            case '*' : puts("asterisk");    add_token ('*', ASTERISK); break;
-            case '/' : puts("slash");       add_token ('/', SLASH);    break;
-            case '%' : puts("percent");     add_token ('%', PERCENT);  break;
-            case '^' : puts("caret");       add_token ('^', CARET);    break;
+            case '(' : puts("paran-open");  add_token('(', LPAREN);   break;
+            case ')' : puts("paran-close"); add_token(')', RPAREN);   break;
+            case '+' : puts("plus");        add_token('+', PLUS);     break;
+            case '-' : puts("minus");       add_token('-', MINUS);    break;
+            case '*' : puts("asterisk");    add_token('*', ASTERISK); break;
+            case '/' : puts("slash");       add_token('/', SLASH);    break;
+            case '%' : puts("percent");     add_token('%', PERCENT);  break;
+            case '^' : puts("caret");       add_token('^', CARET);    break;
             case '1' : case '2' : case '3' : case '4' : case '5' :
             case '6' : case '7' : case '8' : case '9' : case '0' : case '.' :
                        puts("number"); j = 0; 
                        while (isdigit (str[i]) || str[i] == '.')
                            buf[j++] = str[i++];
                        buf[j] = '\0'; i -= 1;
-                       add_token (atof(buf), NUMBER); 
+                       add_token(atof(buf), NUMBER); 
                        break;
             default  : puts("blank");
         }
     }
     if (end == 0) error_exit("No available tokens exist");
 
-    printf ("total tokens : %d\n", end);
+    printf("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (toks[i]->type == NUMBER) 
-            printf ("value : %.10g\n", toks[i]->value);
+            printf("value : %.10g\n", toks[i]->value);
         else
-            printf ("value : %c\n", (char) toks[i]->value);
+            printf("value : %c\n", (char) toks[i]->value);
     }
 }
 
@@ -109,49 +110,49 @@ double $name (node *this) \
     return res; \
 }
 
-BINARY_EVAL (eval_add, +);
-BINARY_EVAL (eval_sub, -);
-BINARY_EVAL (eval_mul, *);
-BINARY_EVAL (eval_div, /);
+BINARY_EVAL(eval_add, +);
+BINARY_EVAL(eval_sub, -);
+BINARY_EVAL(eval_mul, *);
+BINARY_EVAL(eval_div, /);
 
-double eval_pow (node *this)
+double eval_pow(node *this)
 {
     node *left  = ((binary_node *) this)->left;
     node *right = ((binary_node *) this)->right;
-    double res = pow (left->eval(left), right->eval(right));
-    puts ("free binary_node eval_pow"); free(this);
+    double res = pow(left->eval(left), right->eval(right));
+    puts("free binary_node eval_pow"); free(this);
     return res;
 }
 
-double eval_mod (node *this)
+double eval_mod(node *this)
 {
     node *left  = ((binary_node *) this)->left;
     node *right = ((binary_node *) this)->right;
-    double res = fmod (left->eval(left), right->eval(right));
-    puts ("free binary_node eval_mod"); free(this);
+    double res = fmod(left->eval(left), right->eval(right));
+    puts("free binary_node eval_mod"); free(this);
     return res;
 }
 
-double eval_plus (node *this)
+double eval_plus(node *this)
 { 
     node *child = ((unary_node *) this)->child;
-    double res = child->eval (child);
-    puts ("free unary_node eval_plus"); free(this);
+    double res = child->eval(child);
+    puts("free unary_node eval_plus"); free(this);
     return res;
 }
 
-double eval_minus (node *this)
+double eval_minus(node *this)
 { 
     node *child = ((unary_node *) this)->child;
-    double res = - child->eval (child);
-    puts ("free unary_node eval_minus"); free(this);
+    double res = - child->eval(child);
+    puts("free unary_node eval_minus"); free(this);
     return res;
 }
 
-double eval_literal (node *this)
+double eval_literal(node *this)
 {
     double res = ((literal_node *) this)->value;
-    printf ("free literal_node : %.10g\n", res); free(this);
+    printf("free literal_node : %.10g\n", res); free(this);
     return res;
 }
 
@@ -200,81 +201,81 @@ double eval_literal (node *this)
  *  recursion 을 이용한 코드는 처음에는 이해하기가 어려우므로 시간을 가지고 분석해야 합니다.
  */
 
-int parse_expr (int begin, node **ast);
+int parse_expr(int begin, node **ast);
 
-int parse_primary_expr (int begin, node **ast)
+int parse_primary_expr(int begin, node **ast)
 {
-    puts ("RUN parse_primary_expr()");
+    puts("RUN parse_primary_expr()");
     if (begin >= end) exit(1);
 
     int token_cnt = 0;
     if (toks[begin]->type == NUMBER) {
-        MAKE_LITERAL_NODE (toks[begin]->value, *ast);
+        MAKE_LITERAL_NODE(toks[begin]->value, *ast);
         return 1;
     }
     if (toks[begin]->type == LPAREN) {
-        puts (" (  LPAREN"); paren_cnt++;
+        puts(" (  LPAREN"); paren_cnt++;
         token_cnt++;
     } else 
         return -1;
 
-    token_cnt += parse_expr (begin + token_cnt, ast);
+    token_cnt += parse_expr(begin + token_cnt, ast);
 
     if (begin + token_cnt++ >= end)
-        error_exit ("Parentheses missmatch");
-    puts (" )  RPAREN"); paren_cnt--;
+        error_exit("Parentheses missmatch");
+    puts(" )  RPAREN"); paren_cnt--;
 
     return token_cnt;
 }
 
-int parse_factor (int begin, node **ast)
+int parse_factor(int begin, node **ast)
 {
-    puts ("RUN parse_factor()");
+    puts("RUN parse_factor()");
     int token_cnt = 0;
     node *child;
 
-    int tmp = parse_primary_expr (begin, &child);
+    int tmp = parse_primary_expr(begin, &child);
     if (tmp >= 0) { 
         if (begin + tmp < end && toks[begin + tmp]->type == CARET) {       // "^" 연산자는 오른쪽부터 계산하는 
             int token_cnt = tmp;                                          // right associativity 로써 트리를
             node *right;                                                  // 오른쪽에 만들어 나가야합니다.
             token_cnt++;                                                  // 따라서 while 문을 이용해 트리를 만들지 않고
-            token_cnt += parse_factor (begin + token_cnt, &right);        // 자기 자신을 재귀적으로 호출한후에
-            MAKE_BINARY_NODE (child, right, eval_pow, *ast);              // return 하면서 트리를 만들어 나갑니다.
+            token_cnt += parse_factor(begin + token_cnt, &right);         // 자기 자신을 재귀적으로 호출한후에
+            MAKE_BINARY_NODE(child, right, eval_pow, *ast);               // return 하면서 트리를 만들어 나갑니다.
             return token_cnt;                                             //
         }                                                                 //   2 ^ 3 ^ 4  일경우         ^
         *ast = child;                                                     //                         2     ^
         return tmp;                                                       //                            3     4
     } 
     if (toks[begin]->type != PLUS && toks[begin]->type != MINUS)
-        error_exit ("Only unary PLUS or MINUS allowed");
+        error_exit("Only unary PLUS or MINUS allowed");
 
     token_cnt++;
-    token_cnt += parse_factor (begin + 1, &child);         // "+" <factor> 와 "-" <factor> 를 만드는
-    switch (toks[begin]->type) {                            // MAKE_UNARY_NODE 의 경우도 오른쪽 <factor> 가
+    token_cnt += parse_factor(begin + 1, &child);          // "+" <factor> 와 "-" <factor> 를 만드는
+    switch (toks[begin]->type) {                           // MAKE_UNARY_NODE 의 경우도 오른쪽 <factor> 가
         case PLUS :                                        // 먼저 계산이 완료돼야 하므로 자기 자신을 재귀적으로 
-            MAKE_UNARY_NODE (child, eval_plus, *ast);      // 호출한후에 return 하면서 트리를 만듭니다.
+            MAKE_UNARY_NODE(child, eval_plus, *ast);       // 호출한후에 return 하면서 트리를 만듭니다.
             break;
         case MINUS :
-            MAKE_UNARY_NODE (child, eval_minus, *ast);
+            MAKE_UNARY_NODE(child, eval_minus, *ast);
         default : ;
     }
     return token_cnt;
 }
 
-int parse_term (int begin, node **ast)
+int parse_term(int begin, node **ast)
 {
-    puts ("RUN parse_term()");
+    puts("RUN parse_term()");
     int token_cnt = 0;
     node *left, *right;
 
-    token_cnt += parse_factor (begin, &left);
+    token_cnt += parse_factor(begin, &left);
 
     if (begin + token_cnt < end) {
         if (toks[begin + token_cnt]->type == NUMBER)
-            error_exit ("Consecutive NUMBER");
+            error_exit("Consecutive NUMBER");
         if (toks[begin + token_cnt]->type == LPAREN)
-            error_exit ("Missing operator before LPAREN ?");
+            error_exit("Missing operator before LPAREN ?");
     }
     while ( begin + token_cnt < end 
             && (toks[begin + token_cnt]->type == ASTERISK 
@@ -283,16 +284,16 @@ int parse_term (int begin, node **ast)
     {
         enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_factor (begin + token_cnt, &right);       // 곱셉, 나눗셈은 왼쪽부터 계산하는
+        token_cnt += parse_factor(begin + token_cnt, &right);        // 곱셉, 나눗셈은 왼쪽부터 계산하는
         switch (type) {                                              // left associativity 이므로 parse_factor() 
             case ASTERISK :                                          // 함수를 이용해 node *right 를 설정해서
-                MAKE_BINARY_NODE (left, right, eval_mul, left);      // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
+                MAKE_BINARY_NODE(left, right, eval_mul, left);       // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
                 break;                                               // 덧셈, 뺼셈과 곱셈, 나눗셈의 관계는 
             case SLASH :                                             // 곱셈, 나눗셈이 우선순위가 높기 때문에 
-                MAKE_BINARY_NODE (left, right, eval_div, left);      // parse_term() 함수를 별도로 만들어야 합니다.
+                MAKE_BINARY_NODE(left, right, eval_div, left);       // parse_term() 함수를 별도로 만들어야 합니다.
                 break;
             case PERCENT :
-                MAKE_BINARY_NODE (left, right, eval_mod, left);
+                MAKE_BINARY_NODE(left, right, eval_mod, left);
             default : ;
         }
     }
@@ -300,13 +301,13 @@ int parse_term (int begin, node **ast)
     return token_cnt;
 }
 
-int parse_expr (int begin, node **ast)
+int parse_expr(int begin, node **ast)
 {
-    puts ("RUN parse_expr()");
+    puts("RUN parse_expr()");
     int token_cnt = 0;
     node *left, *right;
 
-    token_cnt += parse_term (begin, &left);
+    token_cnt += parse_term(begin, &left);
 
     while ( begin + token_cnt < end 
             && (toks[begin + token_cnt]->type == PLUS 
@@ -314,36 +315,36 @@ int parse_expr (int begin, node **ast)
     {
         enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_term (begin + token_cnt, &right);         // 덧셈, 뺄셈도 왼쪽부터 계산하는
+        token_cnt += parse_term(begin + token_cnt, &right);          // 덧셈, 뺄셈도 왼쪽부터 계산하는
         switch (type) {                                              // left associativity 이므로 parse_term() 
             case PLUS :                                              // 함수를 이용해 node *right 를 설정해서
-                MAKE_BINARY_NODE (left, right, eval_add, left);      // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
+                MAKE_BINARY_NODE(left, right, eval_add, left);       // while 문을 이용해 왼쪽에 트리를 만들어 나갑니다.
                 break;                                               //
             case MINUS :                                             //   2 - 3 + 4  일경우           +
-                MAKE_BINARY_NODE (left, right, eval_sub, left);      //                           -     4
+                MAKE_BINARY_NODE(left, right, eval_sub, left);       //                           -     4
             default : ;                                              //                        2     3
         }
     }
     if (begin + token_cnt < end && toks[begin + token_cnt]->type == RPAREN 
-        && paren_cnt == 0) error_exit ("Parentheses missmatch");
+        && paren_cnt == 0) error_exit("Parentheses missmatch");
 
     *ast = left;
     return token_cnt;
 }
 
-int main (int argc, char *argv[]) 
+int main(int argc, char *argv[]) 
 {
     if (argc < 2)
-        error_exit ("Arithmetic expression required");
+        error_exit("Arithmetic expression required");
 
-    puts ("==========  tokenize()  =========");
+    puts("==========  tokenize()  =========");
     toks = malloc(sizeof(void *) * strlen(argv[1]));
-    tokenize (argv[1]);
-    puts ("===========  parse()  ===========");
+    tokenize(argv[1]);
+    puts("===========  parse()  ===========");
     node *ast;
-    parse_expr (0, &ast);
-    puts ("============  eval()  ===========");
-    printf ("result : %.10g\n", ast->eval (ast));
-    free (toks);
+    parse_expr(0, &ast);
+    puts("============  eval()  ===========");
+    printf("result : %.10g\n", ast->eval(ast));
+    free(toks);
     return 0;
 }
