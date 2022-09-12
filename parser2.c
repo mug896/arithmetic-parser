@@ -81,10 +81,10 @@ void tokenize(char *str)
 }
 
 #define BINARY_EVAL( $name, $op ) \
-double $name(double left, double right) \
+double $name(double num1, double num2) \
 { \
-    printf(#$name "() left : %.10g, right : %.10g\n", left, right); \
-    return left $op right; \
+    printf(#$name "() num1 : %.10g, num2 : %.10g\n", num1, num2); \
+    return num1 $op num2; \
 }
 
 BINARY_EVAL(eval_add, +);
@@ -92,21 +92,21 @@ BINARY_EVAL(eval_sub, -);
 BINARY_EVAL(eval_mul, *);
 BINARY_EVAL(eval_div, /);
 
-double eval_pow(double left, double right) {
-    printf("eval_pow() left : %.10g, right : %.10g\n", left, right);
-    return pow(left, right);
+double eval_pow(double num1, double num2) {
+    printf("eval_pow() num1 : %.10g, num2 : %.10g\n", num1, num2);
+    return pow(num1, num2);
 }
-double eval_mod(double left, double right) {
-    printf("eval_mod() left : %.10g, right : %.10g\n", left, right);
-    return fmod(left, right);
+double eval_mod(double num1, double num2) {
+    printf("eval_mod() num1 : %.10g, num2 : %.10g\n", num1, num2);
+    return fmod(num1, num2);
 }
-double eval_plus(double val) {
-    printf("eval_plus() value : %.10g\n", val);
-    return val;
+double eval_plus(double num1) {
+    printf("eval_plus() num1 : %.10g\n", num1);
+    return num1;
 }
-double eval_minus(double val) {
-    printf("eval_minus() value : %.10g\n", val);
-    return - val;
+double eval_minus(double num1) {
+    printf("eval_minus() num1 : %.10g\n", num1);
+    return - num1;
 }
 
 int parse_expr(int begin, double *ret);
@@ -142,33 +142,33 @@ int parse_factor(int begin, double *ret)
 {
     puts("parse_factor()");
     int token_cnt = 0;
-    double value;
+    double num1;
     enum token_type type;
 
-    int tmp = parse_primary_expr(begin, &value);
+    int tmp = parse_primary_expr(begin, &num1);
     if (tmp >= 0) { 
         if (begin + tmp < end && toks[begin + tmp]->type == CARET) {
             int token_cnt = tmp;
-            double right;
+            double num2;
             token_cnt++;
-            token_cnt += parse_factor(begin + token_cnt, &right);
-            *ret = eval_pow(value, right);
+            token_cnt += parse_factor(begin + token_cnt, &num2);
+            *ret = eval_pow(num1, num2);
             return token_cnt;
         }
-        *ret = value; 
+        *ret = num1; 
         return tmp; 
     }
     if (toks[begin]->type != PLUS && toks[begin]->type != MINUS)
         error_exit("Only unary PLUS or MINUS allowed");
 
     token_cnt++;
-    token_cnt += parse_factor(begin + 1, &value);
+    token_cnt += parse_factor(begin + 1, &num1);
     switch (toks[begin]->type) {
         case PLUS :
-            *ret = eval_plus(value);
+            *ret = eval_plus(num1);
             break;
         case MINUS :
-            *ret = eval_minus(value);
+            *ret = eval_minus(num1);
         default : ;
     }
     return token_cnt;
@@ -178,9 +178,9 @@ int parse_term(int begin, double *ret)
 {
     puts ("parse_term()");
     int token_cnt = 0;
-    double left, right;
+    double num1, num2;
 
-    token_cnt += parse_factor(begin, &left);
+    token_cnt += parse_factor(begin, &num1);
 
     if (begin + token_cnt < end) {
         if (toks[begin + token_cnt]->type == NUMBER)
@@ -195,20 +195,20 @@ int parse_term(int begin, double *ret)
     {
         enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_factor(begin + token_cnt, &right);
+        token_cnt += parse_factor(begin + token_cnt, &num2);
         switch (type) {
             case ASTERISK : 
-                left = eval_mul(left, right);
+                num1 = eval_mul(num1, num2);
                 break;
             case SLASH : 
-                left = eval_div(left, right);
+                num1 = eval_div(num1, num2);
                 break;
             case PERCENT : 
-                left = eval_mod(left, right);
+                num1 = eval_mod(num1, num2);
             default : ;
         }
     }
-    *ret = left;
+    *ret = num1;
     return token_cnt;
 }
 
@@ -216,9 +216,9 @@ int parse_expr(int begin, double *ret)
 {
     puts("parse_expr()");
     int token_cnt = 0;
-    double left, right;
+    double num1, num2;
 
-    token_cnt += parse_term(begin, &left);
+    token_cnt += parse_term(begin, &num1);
 
     while ( begin + token_cnt < end 
             && (toks[begin + token_cnt]->type == PLUS 
@@ -226,20 +226,20 @@ int parse_expr(int begin, double *ret)
     {
         enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_term(begin + token_cnt, &right);
+        token_cnt += parse_term(begin + token_cnt, &num2);
         switch (type) {
             case PLUS : 
-                left = eval_add(left, right);
+                num1 = eval_add(num1, num2);
                 break;
             case MINUS : 
-                left = eval_sub(left, right);
+                num1 = eval_sub(num1, num2);
             default : ;
         }
     }
     if (begin + token_cnt < end && toks[begin + token_cnt]->type == RPAREN 
         && paren_cnt == 0) error_exit("Parentheses missmatch");
 
-    *ret = left;
+    *ret = num1;
     return token_cnt;
 }
 
