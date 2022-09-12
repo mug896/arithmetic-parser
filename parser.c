@@ -243,9 +243,9 @@ int parse_factor(int begin, node **ast)
             token_cnt += parse_factor(begin + token_cnt, &right);         // 자기 자신을 재귀적으로 호출한후에
             MAKE_BINARY_NODE(child, right, eval_pow, *ast);               // return 하면서 트리를 만들어 나갑니다.
             return token_cnt;                                             //
-        }                                                                 //   2 ^ 3 ^ 4  일경우         ^
-        *ast = child;                                                     //                         2     ^
-        return tmp;                                                       //                            3     4
+        }                                                                 //   4 ^ 3 ^ 2  일경우         ^
+        *ast = child;                                                     //                         4     ^
+        return tmp;                                                       //                            3     2
     } 
     if (toks[begin]->type != PLUS && toks[begin]->type != MINUS)
         error_exit("Only unary PLUS or MINUS allowed");
