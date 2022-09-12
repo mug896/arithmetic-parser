@@ -206,7 +206,8 @@ int parse_expr(int begin, node **ast);
 int parse_primary_expr(int begin, node **ast)
 {
     puts("RUN parse_primary_expr()");
-    if (begin >= end) exit(1);
+    if (begin >= end)
+        error_exit("Early termination");
 
     int token_cnt = 0;
     if (toks[begin]->type == NUMBER) {
