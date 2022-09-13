@@ -86,11 +86,15 @@ void tokenize(char *str)
                        buf[j] = '\0'; i -= 1;
                        add_token(atof(buf), NUMBER); 
                        break;
-            default  : puts("blank");
+            case ' ' : puts("blank");
+                       break;
+            char msg[20];
+            default : 
+                    sprintf(msg, "tokenizer: \"%c\"", str[i]);
+                    error_exit(msg);
         }
     }
     if (end == 0) error_exit("No available tokens exist");
-
     printf("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (toks[i]->type == NUMBER) 
@@ -99,6 +103,8 @@ void tokenize(char *str)
             printf("value : %c\n", (char) toks[i]->value);
     }
 }
+
+////////////////////////////////////////////////////////////
 
 #define BINARY_EVAL( $name, $op ) \
 double $name(node *this) \
