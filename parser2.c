@@ -181,7 +181,7 @@ double parse_factor()
             default :;
         }
     }
-    else if (type != NUMBER ) error(1);   // 오류: 1 + 2 / *
+    else if (type != NUMBER && type != LPAREN) error(1);   // 오류: 1 + 2 / *
 
     return num1;
 }
