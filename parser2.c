@@ -149,7 +149,7 @@ double parse_primary_expr()
         num1 = parse_expr();
 
         token_cnt++;
-        if (! (token_cnt < end)) error(0);  // 1 + ( 2
+        if (! (token_cnt < end)) error(0);  // 오류: 1 + ( 2
         puts(" )  RPAREN"); paren_cnt--;
     } 
 
@@ -160,7 +160,7 @@ double parse_factor()
 {
     puts("parse_factor()");
     double num1;
-    if (! (token_cnt < end)) error(0);  // 1 + 2 +
+    if (! (token_cnt < end)) error(0);  // 오류: 1 + 2 +
     enum token_type type = toks[token_cnt]->type;
     num1 = parse_primary_expr();
     if (token_cnt + 1 < end && type == NUMBER && toks[token_cnt + 1]->type == CARET) 
@@ -181,7 +181,7 @@ double parse_factor()
             default :;
         }
     }
-    else if (type != NUMBER ) error(1);   // 1 + 2 / *
+    else if (type != NUMBER ) error(1);   // 오류: 1 + 2 / *
 
     return num1;
 }
