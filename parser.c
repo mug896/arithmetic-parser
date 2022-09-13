@@ -88,8 +88,8 @@ void tokenize(char *str)
                        break;
             case ' ' : puts("blank");
                        break;
-            char msg[20];
-            default : 
+            default :;
+                    char msg[20];
                     sprintf(msg, "tokenizer: \"%c\"", str[i]);
                     error_exit(msg);
         }
