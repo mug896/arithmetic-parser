@@ -101,7 +101,10 @@ void error(int addend)
                 printf("%c ", (int) toks[i]->value);
         }
     }
-    puts("  <---");
+    if (paren_cnt > 0)
+        puts("  <--- \")\"");
+    else
+        puts("  <---");
     exit(1);
 }
 
@@ -138,11 +141,12 @@ double parse_primary_expr()
 {
     double num1;
     puts("parse_primary_expr()");
-    if (toks[token_cnt]->type == NUMBER) {
+    enum token_type type = toks[token_cnt]->type;
+    if (type == NUMBER) {
         num1 = toks[token_cnt]->value;
         printf("NUMBER : %.10g\n", num1);
     }
-    else if (toks[token_cnt]->type == LPAREN) {
+    else if (type == LPAREN) {
         puts(" (  LPAREN"); paren_cnt++;
         token_cnt++;
 
@@ -152,6 +156,7 @@ double parse_primary_expr()
         if (! (token_cnt < end)) error(0);  // 오류: 1 + ( 2
         puts(" )  RPAREN"); paren_cnt--;
     } 
+    else if (type != PLUS && type != MINUS) error(1);   // 오류: 1 + 2 / *
 
     return num1;
 }
@@ -181,7 +186,6 @@ double parse_factor()
             default :;
         }
     }
-    else if (type != NUMBER && type != LPAREN) error(1);   // 오류: 1 + 2 / *
 
     return num1;
 }
