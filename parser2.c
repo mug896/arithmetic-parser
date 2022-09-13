@@ -101,7 +101,7 @@ void error(int addend)
                 printf("%c ", (int) toks[i]->value);
         }
     }
-    if (paren_cnt > 0)
+    if (token_cnt == end && paren_cnt > 0)
         puts("  <--- \")\"");
     else
         puts("  <---");
