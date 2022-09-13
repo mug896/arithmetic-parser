@@ -69,7 +69,12 @@ void tokenize(char *str)
                        buf[j] = '\0'; i -= 1;
                        add_token(atof(buf), NUMBER); 
                        break;
-            default  : puts("blank");
+            case ' ' : puts("blank");
+                       break;
+            char msg[20];
+            default : 
+                    sprintf(msg, "tokenizer: \"%c\"", str[i]);
+                    error_exit(msg);
         }
     }
     if (end == 0) error_exit("No available tokens exist");
