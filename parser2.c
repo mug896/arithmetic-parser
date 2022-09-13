@@ -8,8 +8,6 @@
 #include <string.h>
 #include <math.h>
 
-double parse_expr();
-
 void error_exit(char *msg)
 { 
     fprintf(stderr, "\nError: %s\n", msg); 
@@ -71,8 +69,8 @@ void tokenize(char *str)
                        break;
             case ' ' : puts("blank");
                        break;
-            char msg[20];
-            default : 
+            default :; 
+                    char msg[20];
                     sprintf(msg, "tokenizer: \"%c\"", str[i]);
                     error_exit(msg);
         }
@@ -136,6 +134,8 @@ double eval_minus(double num1) {
     printf("eval_minus() num1 : %.10g\n", num1);
     return - num1;
 }
+
+double parse_expr();
 
 double parse_primary_expr()
 {
