@@ -152,7 +152,6 @@ double parse_primary_expr()
         if (! (token_cnt < end)) error(0);  // 1 + ( 2
         puts(" )  RPAREN"); paren_cnt--;
     } 
-    else error(1);
 
     return num1;
 }
