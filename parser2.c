@@ -163,8 +163,7 @@ double parse_factor()
     if (! (token_cnt < end)) error(0);  // 1 + 2 +
     enum token_type type = toks[token_cnt]->type;
     num1 = parse_primary_expr();
-    if (token_cnt + 1 < end && 
-            toks[token_cnt]->type == NUMBER && toks[token_cnt + 1]->type == CARET) 
+    if (token_cnt + 1 < end && type == NUMBER && toks[token_cnt + 1]->type == CARET) 
     {
         token_cnt++; token_cnt++;
         double num2 = parse_factor();
