@@ -91,20 +91,20 @@ void tokenize(char *str)
 
 void error(int addend) 
 {
-    printf("\nError: ");
+    fputs("\nError: ", stderr);
     for (int i = 0; i < token_cnt + addend; i++) {
         switch (toks[i]->type) {
             case NUMBER :
-                printf("%.10g ", toks[i]->value);
+                fprintf(stderr, "%.10g ", toks[i]->value);
                 break;
             default:
-                printf("%c ", (int) toks[i]->value);
+                fprintf(stderr, "%c ", (int) toks[i]->value);
         }
     }
     if (token_cnt == end && paren_cnt > 0)
-        puts("  <--- \")\"");
+        fputs("  <--- \")\"\n", stderr);
     else
-        puts("  <---");
+        fputs("  <---\n", stderr);
     exit(1);
 }
 
