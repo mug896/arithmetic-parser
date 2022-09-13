@@ -78,7 +78,6 @@ void tokenize(char *str)
         }
     }
     if (end == 0) error_exit("No available tokens exist");
-
     printf("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (toks[i]->type == NUMBER) 
