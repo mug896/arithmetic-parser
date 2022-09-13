@@ -248,12 +248,9 @@ double parse_expr()
     }
     if (token_cnt + 1 < end) {   // 오류처리
         switch (toks[token_cnt + 1]->type) {
-            case RPAREN :
-                if (paren_cnt == 0) error(2);  // 2 ) + 3
-                break;
-            case NUMBER :
-                error(2);  // 1 + 2 3
-                break;
+            case LPAREN : error(2); break;   // 1 + 2 (3)
+            case RPAREN : if (paren_cnt == 0) error(2); break;   // 2 ) + 3
+            case NUMBER : error(2); break;   // 1 + 2 3
             default:;
         }
     }
