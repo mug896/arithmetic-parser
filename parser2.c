@@ -169,7 +169,7 @@ double parse_factor()
         double num2 = parse_factor();
         num1 = eval_pow(num1, num2);
     }
-    if (type == PLUS || type == MINUS) {
+    else if (type == PLUS || type == MINUS) {
         token_cnt++;
         num1 = parse_factor();
         switch (type) {
@@ -181,6 +181,8 @@ double parse_factor()
             default :;
         }
     }
+    else if (type != NUMBER ) error(1);   // 1 + 2 / *
+
     return num1;
 }
 
