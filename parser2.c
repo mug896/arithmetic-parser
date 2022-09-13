@@ -8,14 +8,17 @@
 #include <string.h>
 #include <math.h>
 
+double parse_expr();
+
 void error_exit(char *msg)
 { 
-    fprintf(stderr, "ERROR: %s\n", msg); 
+    fprintf(stderr, "Error: %s\n", msg); 
     exit(EXIT_FAILURE);
 }
 
 struct token **toks;
 int end = 0;
+int token_cnt = 0;
 int paren_cnt = 0;
 
 enum token_type {
@@ -80,6 +83,24 @@ void tokenize(char *str)
     }
 }
 
+////////////////////////////////////////////////////////////
+
+void error(int addend) 
+{
+    printf("\nError: ");
+    for (int i = 0; i < token_cnt + addend; i++) {
+        switch (toks[i]->type) {
+            case NUMBER :
+                printf("%.10g ", toks[i]->value);
+                break;
+            default:
+                printf("%c ", (int) toks[i]->value);
+        }
+    }
+    puts("  <---");
+    exit(1);
+}
+
 #define BINARY_EVAL( $name, $op ) \
 double $name(double num1, double num2) \
 { \
@@ -109,93 +130,72 @@ double eval_minus(double num1) {
     return - num1;
 }
 
-int parse_expr(int begin, double *ret);
-
-int parse_primary_expr(int begin, double *ret)
+double parse_primary_expr()
 {
+    double num1;
     puts("parse_primary_expr()");
-    if (begin >= end)
-        error_exit("Early termination");
-
-    int token_cnt = 0;
-    if (toks[begin]->type == NUMBER) {
-        *ret = toks[begin]->value;
-        printf("NUMBER : %.10g\n", *ret);
-        return 1;
+    if (toks[token_cnt]->type == NUMBER) {
+        num1 = toks[token_cnt]->value;
+        printf("NUMBER : %.10g\n", num1);
     }
-    if (toks[begin]->type == LPAREN) {
+    else if (toks[token_cnt]->type == LPAREN) {
         puts(" (  LPAREN"); paren_cnt++;
         token_cnt++;
-    } else 
-        return -1;
 
-    token_cnt += parse_expr(begin + token_cnt, ret);
+        num1 = parse_expr();
 
-    if (begin + token_cnt++ >= end)
-        error_exit("Parentheses missmatch");
-    puts(" )  RPAREN"); paren_cnt--;
+        token_cnt++;
+        if (! (token_cnt < end)) error(0);  // 1 + ( 2
+        puts(" )  RPAREN"); paren_cnt--;
+    } 
+    else error(1);
 
-    return token_cnt;
+    return num1;
 }
 
-int parse_factor(int begin, double *ret)
+double parse_factor()
 {
     puts("parse_factor()");
-    int token_cnt = 0;
     double num1;
-    enum token_type type;
-
-    int tmp = parse_primary_expr(begin, &num1);
-    if (tmp >= 0) { 
-        if (begin + tmp < end && toks[begin + tmp]->type == CARET) {
-            int token_cnt = tmp;
-            double num2;
-            token_cnt++;
-            token_cnt += parse_factor(begin + token_cnt, &num2);
-            *ret = eval_pow(num1, num2);
-            return token_cnt;
+    if (! (token_cnt < end)) error(0);  // 1 + 2 +
+    enum token_type type = toks[token_cnt]->type;
+    num1 = parse_primary_expr();
+    if (token_cnt + 1 < end && toks[token_cnt + 1]->type == CARET) 
+    {
+        token_cnt++; token_cnt++;
+        double num2 = parse_factor();
+        num1 = eval_pow(num1, num2);
+    }
+    if (type == PLUS || type == MINUS) {
+        token_cnt++;
+        num1 = parse_factor();
+        switch (type) {
+            case PLUS :
+                num1 = eval_plus(num1);
+                break;
+            case MINUS :
+                num1 = eval_minus(num1);
+            default :;
         }
-        *ret = num1; 
-        return tmp; 
     }
-    if (toks[begin]->type != PLUS && toks[begin]->type != MINUS)
-        error_exit("Only unary PLUS or MINUS allowed");
-
-    token_cnt++;
-    token_cnt += parse_factor(begin + 1, &num1);
-    switch (toks[begin]->type) {
-        case PLUS :
-            *ret = eval_plus(num1);
-            break;
-        case MINUS :
-            *ret = eval_minus(num1);
-        default : ;
-    }
-    return token_cnt;
+    return num1;
 }
 
-int parse_term(int begin, double *ret)
+double parse_term()
 {
     puts ("parse_term()");
-    int token_cnt = 0;
     double num1, num2;
 
-    token_cnt += parse_factor(begin, &num1);
-
-    if (begin + token_cnt < end) {
-        if (toks[begin + token_cnt]->type == NUMBER)
-            error_exit("Consecutive NUMBER");
-        if (toks[begin + token_cnt]->type == LPAREN)
-            error_exit("Missing operator before LPAREN ?");
-    }
-    while ( begin + token_cnt < end 
-            && (toks[begin + token_cnt]->type == ASTERISK 
-                || toks[begin + token_cnt]->type == SLASH
-                || toks[begin + token_cnt]->type == PERCENT ))
+    num1 = parse_factor();
+    while ( token_cnt + 1 < end &&
+                (  toks[token_cnt + 1]->type == ASTERISK 
+                || toks[token_cnt + 1]->type == SLASH
+                || toks[token_cnt + 1]->type == PERCENT ))
     {
-        enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_factor(begin + token_cnt, &num2);
+        enum token_type type = toks[token_cnt]->type;
+        token_cnt++;
+        num2 = parse_factor();
         switch (type) {
             case ASTERISK : 
                 num1 = eval_mul(num1, num2);
@@ -205,42 +205,48 @@ int parse_term(int begin, double *ret)
                 break;
             case PERCENT : 
                 num1 = eval_mod(num1, num2);
-            default : ;
+            default :;
         }
     }
-    *ret = num1;
-    return token_cnt;
+    return num1;
 }
 
-int parse_expr(int begin, double *ret)
+double parse_expr()
 {
     puts("parse_expr()");
-    int token_cnt = 0;
     double num1, num2;
 
-    token_cnt += parse_term(begin, &num1);
+    num1 = parse_term();
 
-    while ( begin + token_cnt < end 
-            && (toks[begin + token_cnt]->type == PLUS 
-                || toks[begin + token_cnt]->type == MINUS ))
+    while (token_cnt + 1 < end &&
+                (  toks[token_cnt + 1]->type == PLUS 
+                || toks[token_cnt + 1]->type == MINUS ))
     {
-        enum token_type type = toks[begin + token_cnt]->type;
         token_cnt++;
-        token_cnt += parse_term(begin + token_cnt, &num2);
+        enum token_type type = toks[token_cnt]->type;
+        token_cnt++;
+        num2 = parse_term();
         switch (type) {
             case PLUS : 
                 num1 = eval_add(num1, num2);
                 break;
             case MINUS : 
                 num1 = eval_sub(num1, num2);
-            default : ;
+            default :;
         }
     }
-    if (begin + token_cnt < end && toks[begin + token_cnt]->type == RPAREN 
-        && paren_cnt == 0) error_exit("Parentheses missmatch");
-
-    *ret = num1;
-    return token_cnt;
+    if (token_cnt + 1 < end) {   // 오류처리
+        switch (toks[token_cnt + 1]->type) {
+            case RPAREN :
+                if (paren_cnt == 0) error(2);  // 2 ) + 3
+                break;
+            case NUMBER :
+                error(2);  // 1 + 2 3
+                break;
+            default:;
+        }
+    }
+    return num1;
 }
 
 int main(int argc, char *argv[]) 
@@ -252,8 +258,7 @@ int main(int argc, char *argv[])
     toks = malloc(sizeof(void *) * strlen(argv[1]));
     tokenize(argv[1]);
     puts("===========  parse()  ===========");
-    double result;
-    parse_expr(0, &result);
+    double result = parse_expr();
     puts("============  result  ===========");
     printf("result : %.10g\n", result);
     for (int i = 0; i < end; i++)
