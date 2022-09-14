@@ -221,8 +221,8 @@ int parse_primary_expr(int begin, node **ast)
     if (toks[begin]->type == LPAREN) {
         puts(" (  LPAREN"); paren_cnt++;
         token_cnt++;
-    } else 
-        return -1;
+    } 
+    else return -1;
 
     token_cnt += parse_expr(begin + token_cnt, ast);
 
