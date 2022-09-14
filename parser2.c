@@ -170,7 +170,13 @@ double parse_factor()
     if (type != PLUS && type != MINUS)
         num1 = parse_primary_expr();
 
-    if (type == PLUS || type == MINUS) {
+    if (token_cnt + 1 < end && toks[token_cnt + 1]->type == CARET) 
+    {
+        token_cnt++; token_cnt++;
+        double num2 = parse_factor();
+        num1 = eval_pow(num1, num2);
+    }
+    else if (type == PLUS || type == MINUS) {
         token_cnt++;
         num1 = parse_factor();
         switch (type) {
@@ -182,21 +188,7 @@ double parse_factor()
             default :;
         }
     }
-    return num1;
-}
 
-double parse_power()
-{
-    puts ("parse_power()");
-    double num1, num2;
-
-    num1 = parse_factor();
-    if (token_cnt + 1 < end && toks[token_cnt + 1]->type == CARET) 
-    {
-        token_cnt++; token_cnt++;
-        double num2 = parse_power();
-        num1 = eval_pow(num1, num2);
-    }
     return num1;
 }
 
@@ -205,7 +197,7 @@ double parse_term()
     puts ("parse_term()");
     double num1, num2;
 
-    num1 = parse_power();
+    num1 = parse_factor();
     while ( token_cnt + 1 < end &&
                 (  toks[token_cnt + 1]->type == ASTERISK 
                 || toks[token_cnt + 1]->type == SLASH
