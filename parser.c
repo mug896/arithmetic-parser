@@ -123,7 +123,7 @@ BINARY_EVAL(eval_div, /);
 
 double eval_pow(node *this)
 {
-    node *num1  = ((binary_node *) this)->num1;
+    node *num1 = ((binary_node *) this)->num1;
     node *num2 = ((binary_node *) this)->num2;
     double res = pow(num1->eval(num1), num2->eval(num2));
     puts("free binary_node eval_pow"); free(this);
@@ -132,7 +132,7 @@ double eval_pow(node *this)
 
 double eval_mod(node *this)
 {
-    node *num1  = ((binary_node *) this)->num1;
+    node *num1 = ((binary_node *) this)->num1;
     node *num2 = ((binary_node *) this)->num2;
     double res = fmod(num1->eval(num1), num2->eval(num2));
     puts("free binary_node eval_mod"); free(this);
