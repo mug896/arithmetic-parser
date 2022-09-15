@@ -206,7 +206,8 @@ int parse()
         // state 가 1 이고 type 이 ENDMARK ( $ ) 이면 accept 가 되므로 결과를 출력하고 종료합니다.
         if (state == 1 && type == ENDMARK) {
             tok1 = pop();
-            printf("===========================\nResult : %.10g\n", tok1->value);
+            puts("===========================");
+            printf("Result : %.10g\n", tok1->value);
             free(tok1);
             return 0;
         }
