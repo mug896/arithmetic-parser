@@ -189,7 +189,7 @@ void print_stack(struct stack *sp)    // 현재 stack 내용을 출력해 주는
     push(tprev); \
 } while (0)
 
-int parse() 
+void parse() 
 {
     enum token_type type;
     int state;
@@ -209,7 +209,7 @@ int parse()
             puts("===========================");
             printf("Result : %.10g\n", tok1->value);
             free(tok1);
-            return 0;
+            return;
         }
 
         // 테이블에서 state 와 type 의 교차지점 값이 0 이면 파싱 오류가 됩니다.
