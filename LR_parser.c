@@ -189,7 +189,7 @@ void print_stack(struct stack *sp)    // 현재 stack 내용을 출력해 주는
     push(tprev); \
 } while (0)
 
-void parse() 
+double parse() 
 {
     enum token_type type;
     int state;
@@ -203,13 +203,12 @@ void parse()
         tprev = peek();
         state = (tprev == NULL ? 0 : tprev->state);
 
-        // state 가 1 이고 type 이 ENDMARK ( $ ) 이면 accept 가 되므로 결과를 출력하고 종료합니다.
+        // state 가 1 이고 type 이 ENDMARK ( $ ) 이면 accept 가 되므로 결과를 반환하고 종료합니다.
         if (state == 1 && type == ENDMARK) {
             tok1 = pop();
-            puts("===========================");
-            printf("Result : %.10g\n", tok1->value);
+            double res = tok1->value;
             free(tok1);
-            return;
+            return res;
         }
 
         // 테이블에서 state 와 type 의 교차지점 값이 0 이면 파싱 오류가 됩니다.
@@ -254,7 +253,9 @@ int main(int argc, char *argv[])
 
     input_str = argv[1];
 
-    parse();
+    double res = parse();
+    puts("===========================");
+    printf("Result : %.10g\n", res);
 
     return 0;
 }
