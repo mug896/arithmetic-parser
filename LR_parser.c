@@ -132,7 +132,7 @@ void print_stack(struct stack *sp)    // 현재 stack 내용을 출력해 주는
         case CARET:    printf("[^]");  break;
         case LPAREN:   printf("[(]");  break;
         case RPAREN:   printf("[)]");  break;
-        case NUMBER:   printf("[%.10g]", sp->token->value); break;
+        case NUMBER:   printf("[%.6g]", sp->token->value); break;
         case ENDMARK:  printf("[$]");  break;
         case EXPR:     printf("[E]");  break;
         case TERM:     printf("[T]");  break;
@@ -255,7 +255,7 @@ int main(int argc, char *argv[])
 
     double res = parse();
     puts("===========================");
-    printf("Result : %.10g\n", res);
+    printf("Result : %.6g\n", res);
 
     return 0;
 }

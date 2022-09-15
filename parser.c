@@ -98,7 +98,7 @@ void tokenize(char *str)
     printf("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (toks[i]->type == NUMBER) 
-            printf("value : %.10g\n", toks[i]->value);
+            printf("value : %.6g\n", toks[i]->value);
         else
             printf("value : %c\n", (char) toks[i]->value);
     }
@@ -158,7 +158,7 @@ double eval_minus(node *this)
 double eval_literal(node *this)
 {
     double res = ((literal_node *) this)->value;
-    printf("free literal_node : %.10g\n", res); free(this);
+    printf("free literal_node : %.6g\n", res); free(this);
     return res;
 }
 
@@ -167,7 +167,7 @@ double eval_literal(node *this)
     p->value = $value; \
     p->eval = eval_literal; \
     $ast = (node *) p; \
-    printf("make_literal_node : %.10g\n", $value); \
+    printf("make_literal_node : %.6g\n", $value); \
 } while (0)
 
 #define MAKE_UNARY_NODE( $num1, $eval, $ast ) do { \
@@ -349,7 +349,7 @@ int main(int argc, char *argv[])
     node *ast;
     parse_expr(0, &ast);
     puts("============  eval()  ===========");
-    printf("result : %.10g\n", ast->eval(ast));
+    printf("result : %.6g\n", ast->eval(ast));
     for (int i = 0; i < end; i++)
         free(toks[i]);
     free(toks);

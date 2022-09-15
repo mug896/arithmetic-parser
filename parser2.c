@@ -79,7 +79,7 @@ void tokenize(char *str)
     printf("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (toks[i]->type == NUMBER) 
-            printf("value : %.10g\n", toks[i]->value);
+            printf("value : %.6g\n", toks[i]->value);
         else
             printf("value : %c\n", (char) toks[i]->value);
     }
@@ -93,7 +93,7 @@ void error(int addend)
     for (int i = 0; i < token_cnt + addend; i++) {
         switch (toks[i]->type) {
             case NUMBER :
-                fprintf(stderr, "%.10g ", toks[i]->value);
+                fprintf(stderr, "%.6g ", toks[i]->value);
                 break;
             default:
                 fprintf(stderr, "%c ", (int) toks[i]->value);
@@ -109,7 +109,7 @@ void error(int addend)
 #define BINARY_EVAL( $name, $op ) \
 double $name(double num1, double num2) \
 { \
-    printf(#$name "() num1 : %.10g, num2 : %.10g\n", num1, num2); \
+    printf(#$name "() num1 : %.6g, num2 : %.6g\n", num1, num2); \
     return num1 $op num2; \
 }
 
@@ -119,19 +119,19 @@ BINARY_EVAL(eval_mul, *);
 BINARY_EVAL(eval_div, /);
 
 double eval_pow(double num1, double num2) {
-    printf("eval_pow() num1 : %.10g, num2 : %.10g\n", num1, num2);
+    printf("eval_pow() num1 : %.6g, num2 : %.6g\n", num1, num2);
     return pow(num1, num2);
 }
 double eval_mod(double num1, double num2) {
-    printf("eval_mod() num1 : %.10g, num2 : %.10g\n", num1, num2);
+    printf("eval_mod() num1 : %.6g, num2 : %.6g\n", num1, num2);
     return fmod(num1, num2);
 }
 double eval_plus(double num1) {
-    printf("eval_plus() num1 : %.10g\n", num1);
+    printf("eval_plus() num1 : %.6g\n", num1);
     return num1;
 }
 double eval_minus(double num1) {
-    printf("eval_minus() num1 : %.10g\n", num1);
+    printf("eval_minus() num1 : %.6g\n", num1);
     return - num1;
 }
 
@@ -144,7 +144,7 @@ double parse_primary_expr()
     enum token_type type = toks[token_cnt]->type;
     if (type == NUMBER) {
         num1 = toks[token_cnt]->value;
-        printf("NUMBER : %.10g\n", num1);
+        printf("NUMBER : %.6g\n", num1);
     }
     else if (type == LPAREN) {
         puts(" (  LPAREN"); paren_cnt++;
@@ -267,7 +267,7 @@ int main(int argc, char *argv[])
     puts("===========  parse()  ===========");
     double result = parse_expr();
     puts("============  result  ===========");
-    printf("result : %.10g\n", result);
+    printf("result : %.6g\n", result);
     for (int i = 0; i < end; i++)
         free(toks[i]);
     free(toks);
