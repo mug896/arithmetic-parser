@@ -22,6 +22,8 @@ lexical analyzer 에서는  regular grammar 가 사용됩니다.
     3. [RE to DFA using Thomson's and Subset Construction Ex.1](https://www.youtube.com/watch?v=vt2x0W_jcPU&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=109)
     4. [RE to DFA using Thompson's and Subset Construction Ex.2](https://www.youtube.com/watch?v=BgcBmdU_KOQ&list=PLywg83lhcrgDvPgTr-xatGWSe6YYnDevz&index=110)
 
+- Regular Expression Matching Can Be Simple And Fast 
+https://swtch.com/~rsc/regexp/regexp1.html
 
 - Regular expression 을 입력하면 자동으로 transition 테이블을 만들어주는 사이트  
 https://cyberzhg.github.io/toolbox/min_dfa
