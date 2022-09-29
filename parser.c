@@ -10,7 +10,7 @@
 
 void error_exit(char *msg)
 { 
-    fprintf(stderr, "Error: %s\n", msg); 
+    fprintf(stderr, "\nError: %s\n", msg); 
     exit(EXIT_FAILURE);
 }
 
