@@ -197,6 +197,7 @@ double parse()
 
     if ((tnext = next_token()) == NULL) 
         error_exit("No available tokens exist");
+
     while (1) 
     {
         type = (tnext == NULL ? ENDMARK : tnext->type);
