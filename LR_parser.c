@@ -80,7 +80,7 @@ const char table[ROWS][COLS] =
 };
 
 // 다음 토큰 하나를 전달하는 함수. 토큰을 하나씩 읽어들이면서 바로 파싱이 가능합니다.
-token_t *next_token() 
+token_t* next_token() 
 {
     static int cpos = 0;
     double value;
@@ -276,7 +276,7 @@ void push(token_t *token)
     sp = p;
 }
 
-token_t *pop()
+token_t* pop()
 {
     if (sp == NULL) return NULL;
     token_t *token = sp->token;
@@ -286,7 +286,7 @@ token_t *pop()
     return token;
 }
 
-token_t *peek()
+token_t* peek()
 {
     return (sp == NULL ? NULL : sp->token);
 }
