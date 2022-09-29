@@ -87,7 +87,7 @@ token_t *next_token()
     enum token_type type;
     char buf[20] = {}; 
 
-next :;
+next :
     if (cpos >= strlen(input_str))
         return NULL;
     int i, j;
