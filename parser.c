@@ -94,7 +94,7 @@ void tokenize(char *str)
                     error_exit(msg);
         }
     }
-    if (end == 0) error_exit("No available tokens exist");
+    if (end == 0) error_exit("no available tokens exist");
     printf("total tokens : %d\n", end);
     for (int i = 0; i < end; i++) {
         if (toks[i]->type == NUMBER) 
@@ -211,7 +211,7 @@ int parse_primary_expr(int begin, node **ast)
 {
     puts("RUN parse_primary_expr()");
     if (begin >= end)
-        error_exit("Early termination");
+        error_exit("early termination");
 
     int token_cnt = 0;
     if (toks[begin]->type == NUMBER) {
@@ -227,7 +227,7 @@ int parse_primary_expr(int begin, node **ast)
     token_cnt += parse_expr(begin + token_cnt, ast);
 
     if (begin + token_cnt++ >= end)
-        error_exit("Parentheses missmatch");
+        error_exit("parentheses missmatch");
     puts(" )  RPAREN"); paren_cnt--;
 
     return token_cnt;
@@ -253,7 +253,7 @@ int parse_factor(int begin, node **ast)
         return tmp;                                                       //                            3     2
     } 
     if (toks[begin]->type != PLUS && toks[begin]->type != MINUS)
-        error_exit("Only unary PLUS or MINUS allowed");
+        error_exit("only unary PLUS or MINUS allowed");
 
     token_cnt++;
     token_cnt += parse_factor(begin + 1, &num1);           // "+" <factor> 와 "-" <factor> 를 만드는
@@ -278,9 +278,9 @@ int parse_term(int begin, node **ast)
 
     if (begin + token_cnt < end) {
         if (toks[begin + token_cnt]->type == NUMBER)
-            error_exit("Consecutive NUMBER");
+            error_exit("consecutive NUMBER");
         if (toks[begin + token_cnt]->type == LPAREN)
-            error_exit("Missing operator before LPAREN ?");
+            error_exit("missing operator before LPAREN ?");
     }
     while ( begin + token_cnt < end 
             && (toks[begin + token_cnt]->type == ASTERISK 
@@ -331,7 +331,7 @@ int parse_expr(int begin, node **ast)
         }
     }
     if (begin + token_cnt < end && toks[begin + token_cnt]->type == RPAREN 
-        && paren_cnt == 0) error_exit("Parentheses missmatch");
+        && paren_cnt == 0) error_exit("parentheses missmatch");
 
     *ast = num1;
     return token_cnt;
@@ -340,7 +340,7 @@ int parse_expr(int begin, node **ast)
 int main(int argc, char *argv[]) 
 {
     if (argc < 2)
-        error_exit("Arithmetic expression required");
+        error_exit("arithmetic expression required");
 
     puts("==========  tokenize()  =========");
     toks = malloc(sizeof(void *) * strlen(argv[1]));
