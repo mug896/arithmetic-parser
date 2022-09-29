@@ -20,8 +20,8 @@ int paren_cnt = 0;
 
 enum token_type {
     NUMBER,
-    LPAREN,
     RPAREN,
+    LPAREN,
     PLUS,
     MINUS,
     ASTERISK,
