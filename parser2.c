@@ -99,7 +99,7 @@ void error(int addend)
                 fprintf(stderr, "%c ", (int) toks[i]->value);
         }
     }
-    if (token_cnt == end && paren_cnt > 0 && toks[end - 1]->type < PLUS)
+    if (token_cnt == end && paren_cnt > 0 && toks[end - 1]->type == NUMBER)
         fputs("  <--- \")\"\n", stderr);
     else
         fputs("  <---\n", stderr);
