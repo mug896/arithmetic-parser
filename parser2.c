@@ -21,8 +21,8 @@ int paren_cnt = 0;
 
 enum token_type {
     NUMBER,
-    LPAREN,
     RPAREN,
+    LPAREN,
     PLUS,
     MINUS,
     ASTERISK,
@@ -99,7 +99,7 @@ void error(int addend)
                 fprintf(stderr, "%c ", (int) toks[i]->value);
         }
     }
-    if (token_cnt == end && paren_cnt > 0 && toks[end - 1]->type == NUMBER)
+    if (token_cnt == end && paren_cnt > 0 && toks[end - 1]->type <= RPAREN)
         fputs("  <--- \")\"\n", stderr);
     else
         fputs("  <---\n", stderr);
