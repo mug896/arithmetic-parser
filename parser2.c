@@ -64,7 +64,7 @@ void tokenize(char *str)
                        puts("number"); j = 0; 
                        while (isdigit (str[i]) || str[i] == '.')
                            buf[j++] = str[i++];
-                       buf[j] = '\0'; i -= 1;
+                       buf[j] = '\0'; i--;
                        add_token(atof(buf), NUMBER); 
                        break;
             case ' ' : puts("blank");

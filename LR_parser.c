@@ -109,9 +109,9 @@ next :
                    buf[j] = '\0'; cpos = i - 1;
                    value = atof(buf); type = NUMBER;
                    break;
-        default  : cpos += 1; goto next;
+        default  : cpos++; goto next;
     }
-    cpos += 1;
+    cpos++;
     struct token *p = malloc(sizeof(struct token));
     p->value = value;
     p->type = type;
