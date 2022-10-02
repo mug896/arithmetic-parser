@@ -73,7 +73,7 @@ LR0 아이템은 같은데 lookahead 만 틀릴 경우 `T -> F. , a` 와 `T -> F
 ```
     rule 0 :	S -> E
     rule 1 :	E -> E - T       // 기본적으로 left recursion 을 사용해야 한다.
-    rule 2 :	E -> E + T
+    rule 2 :	E -> E + T          (E - T 에서 E 가 왼쪽에 위치)
     rule 3 :	E -> T
     rule 4 :	T -> T * F
     rule 5 :	T -> T / F
@@ -82,7 +82,7 @@ LR0 아이템은 같은데 lookahead 만 틀릴 경우 `T -> F. , a` 와 `T -> F
     rule 8 :	F -> - F
     rule 9 :	F -> + F
     rule 10 :   F -> P ^ F       // right associativity 를 위한 right recursion
-    rule 11 :   F -> P
+    rule 11 :   F -> P              (P ^ F 에서 F 가 오른쪽에 위치)
     rule 12 :	P -> ( E )
     rule 13 :	P -> a
 ```
