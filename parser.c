@@ -18,7 +18,7 @@ struct token **toks;
 int end = 0; 
 int paren_cnt = 0;
 
-enum token_type {
+typedef enum {
     NUMBER,
     RPAREN,
     LPAREN,
@@ -28,11 +28,11 @@ enum token_type {
     SLASH,
     PERCENT,
     CARET
-};
+} token_t;
 
 struct token {
     double value;
-    enum token_type type;
+    token_t type;
 };
 
 typedef struct node {
@@ -55,7 +55,7 @@ typedef struct binary_node {
     struct node *num2;
 } binary_node;
 
-void add_token(double value, enum token_type type) 
+void add_token(double value, token_t type) 
 {
     struct token *ptr = malloc(sizeof(struct token));
     ptr->value = value;
@@ -287,7 +287,7 @@ int parse_term(int begin, node **ast)
                 || toks[begin + token_cnt]->type == SLASH
                 || toks[begin + token_cnt]->type == PERCENT ))
     {
-        enum token_type type = toks[begin + token_cnt]->type;
+        token_t type = toks[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_factor(begin + token_cnt, &num2);         // 곱셉, 나눗셈은 왼쪽부터 계산하는
         switch (type) {                                              // left associativity 이므로 parse_factor() 
@@ -318,7 +318,7 @@ int parse_expr(int begin, node **ast)
             && (toks[begin + token_cnt]->type == PLUS 
                 || toks[begin + token_cnt]->type == MINUS ))
     {
-        enum token_type type = toks[begin + token_cnt]->type;
+        token_t type = toks[begin + token_cnt]->type;
         token_cnt++;
         token_cnt += parse_term(begin + token_cnt, &num2);           // 덧셈, 뺄셈도 왼쪽부터 계산하는
         switch (type) {                                              // left associativity 이므로 parse_term() 

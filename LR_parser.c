@@ -16,21 +16,21 @@ void error_exit(char *msg)
 
 const char *input_str;       // 입력 스트링 argv[1] 을 대입해 사용
 
-enum token_type { 
+typedef enum { 
     PLUS, MINUS, ASTERISK, SLASH, PERCENT, CARET, LPAREN,
     RPAREN, NUMBER, ENDMARK, EXPR, TERM, FACTOR, PEXPR
-};
+} token_t;
 
-const char * const token_type_s[] = {
+const char * const token_t_s[] = {
     "PLUS", "MINUS", "ASTERISK", "SLASH", "PERCENT", "CARET", "LPAREN",
     "RPAREN", "NUMBER", "ENDMARK", "EXPR", "TERM", "FACTOR", "PEXPR"
 };
 
 typedef struct token {       // 각각의 토큰을 struct token 구조체로 설정합니다.
     double value;
-    enum token_type type;
+    token_t type;
     int state;
-} token_t;
+} token;
 
 struct stack {               // stack 사용을 위한 구조체로 단방향 linked list 입니다.
     struct stack *prev;
@@ -39,9 +39,9 @@ struct stack {               // stack 사용을 위한 구조체로 단방향 li
 
 struct stack *sp = NULL;     // stack 의 top 을 가리키는 포인터
 
-void push(token_t *token);
-token_t *pop();
-token_t *peek();
+void push(token *tok);
+token *pop();
+token *peek();
 
 /*
  *  작성한 ACTION 과 GOTO 테이블을 그대로 행, 렬을 맞추어서 array 로 변환한 것입니다.
@@ -80,11 +80,11 @@ const char table[ROWS][COLS] =
 };
 
 // 다음 토큰 하나를 전달하는 함수. 토큰을 하나씩 읽어들이면서 바로 파싱이 가능합니다.
-token_t* next_token() 
+token* next_token() 
 {
     static int cpos = 0;
     double value;
-    enum token_type type;
+    token_t type;
     char buf[20] = {}; 
 
 next :
@@ -191,9 +191,9 @@ void print_stack(struct stack *sp)    // 현재 stack 내용을 출력해 주는
 
 double parse() 
 {
-    enum token_type type;
+    token_t type;
     int state;
-    token_t *tnext, *tprev, *tpeek, *tok1, *tok2;
+    token *tnext, *tprev, *tpeek, *tok1, *tok2;
 
     if ((tnext = next_token()) == NULL) 
         error_exit("No available tokens exist");
@@ -215,7 +215,7 @@ double parse()
         // 테이블에서 state 와 type 의 교차지점 값이 0 이면 파싱 오류가 됩니다.
         if (table[state][type] == 0) {
             printf("\e[0;31mERROR:\e[0m (STATE: %d, TOKEN: %s) not allowed\n"
-                    ,state, token_type_s[type]);
+                    ,state, token_t_s[type]);
             exit(EXIT_FAILURE);
         }
 
@@ -263,10 +263,10 @@ int main(int argc, char *argv[])
 
 ////////////////////////////  stack  ///////////////////////////////
 
-void push(token_t *token)
+void push(token *tok)
 {
     struct stack *p = malloc(sizeof(struct stack));
-    p->token = token;
+    p->token = tok;
     if (sp == NULL) {
         sp = p;
         sp->prev = NULL;
@@ -276,17 +276,17 @@ void push(token_t *token)
     sp = p;
 }
 
-token_t* pop()
+token* pop()
 {
     if (sp == NULL) return NULL;
-    token_t *token = sp->token;
+    token *tok = sp->token;
     struct stack *tmp = sp->prev;
     free(sp);
     sp = tmp;
-    return token;
+    return tok;
 }
 
-token_t* peek()
+token* peek()
 {
     return (sp == NULL ? NULL : sp->token);
 }

@@ -19,7 +19,7 @@ int end = 0;
 int token_cnt = 0;
 int paren_cnt = 0;
 
-enum token_type {
+typedef enum {
     NUMBER,
     RPAREN,
     LPAREN,
@@ -29,14 +29,14 @@ enum token_type {
     SLASH,
     PERCENT,
     CARET
-};
+} token_t;
 
 struct token {
     double value;
-    enum token_type type;
+    token_t type;
 };
 
-void add_token(double value, enum token_type type) 
+void add_token(double value, token_t type) 
 {
     struct token *ptr = malloc(sizeof(struct token));
     ptr->value = value;
@@ -141,7 +141,7 @@ double parse_primary_expr()
 {
     double num1;
     puts("parse_primary_expr()");
-    enum token_type type = toks[token_cnt]->type;
+    token_t type = toks[token_cnt]->type;
     if (type == NUMBER) {
         num1 = toks[token_cnt]->value;
         printf("NUMBER : %.10g\n", num1);
@@ -166,7 +166,7 @@ double parse_factor()
     puts("parse_factor()");
     double num1;
     if (! (token_cnt < end)) error(0);  // 오류: 1 + 2 +
-    enum token_type type = toks[token_cnt]->type;
+    token_t type = toks[token_cnt]->type;
     if (type != PLUS && type != MINUS)
         num1 = parse_primary_expr();
 
@@ -203,7 +203,7 @@ double parse_term()
                 || toks[token_cnt + 1]->type == PERCENT ))
     {
         token_cnt++;
-        enum token_type type = toks[token_cnt]->type;
+        token_t type = toks[token_cnt]->type;
         token_cnt++;
         num2 = parse_factor();
         switch (type) {
@@ -233,7 +233,7 @@ double parse_expr()
                 || toks[token_cnt + 1]->type == MINUS ))
     {
         token_cnt++;
-        enum token_type type = toks[token_cnt]->type;
+        token_t type = toks[token_cnt]->type;
         token_cnt++;
         num2 = parse_term();
         switch (type) {
