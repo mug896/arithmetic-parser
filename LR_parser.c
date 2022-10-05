@@ -225,7 +225,8 @@ double parse()
             push(tnext);
             tnext = next_token(); 
             PRINT_STACK("\e[0;36mSHIFT:\e[0m ");
-        } else {
+        } 
+        else {
             switch (- table[state][type]) 
             {
                 case  1: REDUCE_BINARY(-);    break;      // rule  1 : E -> E - T
