@@ -21,7 +21,7 @@ typedef enum {
     RPAREN, NUMBER, ENDMARK, EXPR, TERM, FACTOR, PEXPR
 } token_t;
 
-const char * const token_t_s[] = {
+const char *const token_t_s[] = {
     "PLUS", "MINUS", "ASTERISK", "SLASH", "PERCENT", "CARET", "LPAREN",
     "RPAREN", "NUMBER", "ENDMARK", "EXPR", "TERM", "FACTOR", "PEXPR"
 };
