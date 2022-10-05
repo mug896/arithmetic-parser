@@ -112,7 +112,7 @@ next :
         default  : cpos++; goto next;
     }
     cpos++;
-    struct token *p = malloc(sizeof(struct token));
+    token *p = malloc(sizeof(token));
     p->value = value;
     p->type = type;
     return p;
