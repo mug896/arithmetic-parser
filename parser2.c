@@ -96,7 +96,7 @@ void error(int addend)
                 fprintf(stderr, "%.10g ", toks[i]->value);
                 break;
             default:
-                fprintf(stderr, "%c ", (int) toks[i]->value);
+                fprintf(stderr, "%c ", (char) toks[i]->value);
         }
     }
     if (token_cnt == end && paren_cnt > 0 && toks[end - 1]->type <= RPAREN)
