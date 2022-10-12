@@ -65,7 +65,7 @@ void add_token(double value, token_t type)
 
 void tokenize(char *str) 
 {
-    char buf[20] = {0}; int j;
+    char buf[20]; int j;
     for (int i = 0; i < strlen(str); i++) 
     {
         switch (str[i]) 

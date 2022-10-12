@@ -85,7 +85,7 @@ token* next_token()
     static int cpos = 0;
     double value;
     token_t type;
-    char buf[20] = {0}; 
+    char buf[20]; 
 
 next :
     if (cpos >= strlen(input_str))
